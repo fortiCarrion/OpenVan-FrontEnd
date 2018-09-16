@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/home">
+    <img src="favicon.ico" width="30" height="30" alt="">
+    <strong> {{software_nome}}</strong>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/home">
+          <img src="home.svg" width="22" height="22" alt="">
+        </a>
+      </li>
+
+      <!--               CADASTRAR              -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Cadastrar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#" routerLink="/formulario/colegio">Colegio</a>
+          <a class="dropdown-item" href="#" routerLink="/formulario/veiculo">Veiculo</a>
+          <a class="dropdown-item" href="#" routerLink="/formulario/aluno">Aluno</a>
+        </div>
+      </li>
+
+     <!--                  LISTAR              -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Listar
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#"  routerLink="/listagem/colegios">Colegios</a>
+          <a class="dropdown-item" href="#"  routerLink="/listagem/veiculos">Veiculos</a>
+          <a class="dropdown-item" href="#"  routerLink="/listagem/alunos">Alunos</a>
+        </div>
+      </li>
+
+      <!--                  MENSALIDADES              -->
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Mensalidades</a>
+      </li>
+
+      <!--                  RELATÓRIOS              -->
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Relatórios</a>
+
+      </li>
+    </ul>
+  </div>
+</nav>
