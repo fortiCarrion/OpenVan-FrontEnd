@@ -1,4 +1,6 @@
 export const API_CONFIG = {
 
-    baseUrl : "https://openvan.herokuapp.com"
-}
+    //baseUrl : 'http://localhost:8080'
+    baseUrl : 'https://openvan.herokuapp.com'
+    
+};

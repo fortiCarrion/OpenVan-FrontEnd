@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { ColegioService } from '../../../services/domain/colegio.service';
+import { ColegioDTO } from '../../../models/colegio.dto';
+
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-list-colegios',
@@ -8,19 +11,36 @@ import { ColegioService } from '../../../services/domain/colegio.service';
 })
 export class ListColegiosComponent implements OnInit {
 
+  title: String = 'Colégios';
+
+  colegios: ColegioDTO[];
+  selectedColegio: ColegioDTO;
+  modalRef: BsModalRef;
+
   constructor(
-    public colegioService: ColegioService
+    public colegioService: ColegioService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
-    console.log("message");
+    this.getColegios();
+  }
+
+  getColegios(): void {
     this.colegioService.findAll()
-      .subscribe( response => {  
-        console.log();
+      .subscribe( response => {
+        this.colegios = response;
       },
     error => {
       console.log(error);
     });
   }
 
+  onSelect(colegio: ColegioDTO): void {
+    this.selectedColegio = colegio;
+  }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 }

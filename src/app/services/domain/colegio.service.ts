@@ -8,11 +8,22 @@ import { ColegioDTO } from "../../models/colegio.dto";
 @Injectable()
 export class ColegioService {
 
-    constructor(public http: HttpClient){
+    constructor(public http: HttpClient) {
 
     }
 
-    findAll() : Observable<ColegioDTO[]> {
+    findAll(): Observable<ColegioDTO[]> {
         return this.http.get<ColegioDTO[]>(`${API_CONFIG.baseUrl}/colegios`);
+    }
+
+    insert(obj: ColegioDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/colegios`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
     }
 }
