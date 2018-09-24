@@ -29,7 +29,7 @@ export class FormColegioComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       rede: [this.redes[0], [Validators.required]],
       nome: ['maxi', [Validators.required,Validators.minLength(4), Validators.maxLength(50)]],
-      endereco: ['av. ra', [Validators.required,Validators.minLength(10), Validators.maxLength(50)]],
+      endereco: ['av. rddda', [Validators.required,Validators.minLength(10), Validators.maxLength(50)]],
       numero: ['1234', [Validators.required,Validators.minLength(1), Validators.maxLength(5)]],
       telefone: ['33456845', [Validators.minLength(8), Validators.maxLength(14)]],
       website: ['www.asdads.', [Validators.minLength(10), Validators.maxLength(100)]]
@@ -42,6 +42,21 @@ export class FormColegioComponent implements OnInit {
 
   onSubmit(): void {
     console.log("onsubmit");
+    this.insert();
+  }
+
+  insert(){
+    console.log(this.formGroup.value);
+    this.colegioService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+
+      error => {});
+  }
+
+  showInsertOk(){
+    console.log("criado");
   }
 
 }
