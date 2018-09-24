@@ -2,6 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatListModule} from '@angular/material';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -18,6 +23,7 @@ import { FormColegioComponent } from './components/colegio/form-colegio/form-col
 import { ListVeiculosComponent } from './components/veiculo/list-veiculos/list-veiculos.component';
 import { VeiculoService } from './services/domain/veiculo.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +39,15 @@ import { VeiculoService } from './services/domain/veiculo.service';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    NgxPaginationModule
   ],
   providers: [
     ColegioService,

@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of colegios" (click)="onSelect(c)">
+        <tr *ngFor="let c of colegios | paginate: { itemsPerPage:10, currentPage: p }" (click)="onSelect(c)">
           <td align="pull-left">{{c.nome}}</td>
           <td align="pull-left">{{c.endereco}}</td>
           <td align="center">{{c.numero}}</td>
@@ -71,6 +71,7 @@
             </ul>
           </td>
         </tr>
+        <pagination-controls (pageChange)="p =$event"></pagination-controls>
       </tbody>
 
     </table>
