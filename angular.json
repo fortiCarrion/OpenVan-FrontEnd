@@ -19,6 +19,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
+              "src/svg/logo.png",
+              "src/svg/logo2.png",
               "src/svg/home.svg",
               "src/svg/pencil.svg",
               "src/svg/ticket.svg",

@@ -23,6 +23,10 @@ import { FormColegioComponent } from './components/colegio/form-colegio/form-col
 import { ListVeiculosComponent } from './components/veiculo/list-veiculos/list-veiculos.component';
 import { VeiculoService } from './services/domain/veiculo.service';
 import { FormVeiculosComponent } from './components/veiculo/form-veiculos/form-veiculos.component';
+import { ListAlunosComponent } from './components/aluno/list-alunos/list-alunos.component';
+import { AlunoService } from './services/domain/aluno.service';
+import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.component';
+
 
 
 @NgModule({
@@ -33,7 +37,9 @@ import { FormVeiculosComponent } from './components/veiculo/form-veiculos/form-v
     HomeComponent,
     FormColegioComponent,
     ListVeiculosComponent,
-    FormVeiculosComponent
+    FormVeiculosComponent,
+    ListAlunosComponent,
+    FormAlunoComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,8 @@ import { FormVeiculosComponent } from './components/veiculo/form-veiculos/form-v
   ],
   providers: [
     ColegioService,
-    VeiculoService
+    VeiculoService,
+    AlunoService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,22 +3,22 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 import { API_CONFIG } from "../../../config/api.config";
-import { VeiculoDTO } from "../../models/veiculo.dto";
+import { AlunoDTO } from "../../models/aluno.dto";
 
 @Injectable()
-export class VeiculoService {
+export class AlunoService {
 
     constructor(public http: HttpClient) {
 
     }
 
-    public findAll(): Observable<VeiculoDTO[]> {
-        return this.http.get<VeiculoDTO[]>(`${API_CONFIG.baseUrl}/veiculos`);
+    findAll(): Observable<AlunoDTO[]> {
+        return this.http.get<AlunoDTO[]>(`${API_CONFIG.baseUrl}/alunos`);
     }
 
-    insert(obj: VeiculoDTO) {
+    insert(obj: AlunoDTO) {
         return this.http.post(
-            `${API_CONFIG.baseUrl}/veiculos`,
+            `${API_CONFIG.baseUrl}/alunos`,
             obj,
             {
                 observe: 'response',

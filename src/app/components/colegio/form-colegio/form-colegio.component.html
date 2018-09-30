@@ -18,30 +18,32 @@
 
 
       <div class="form-row mt-3">
-        <!-- INICIO ROW 1 -->
-        <div class="form-group col-4 input-group espacamento">
+
+      <!-- INICIO ROW 1 -->
+      <div class="form-group col-lg-4 input-group">
           <div class="input-group-prepend">
             <label for="numero" class="input-group-text">Número</label>
           </div>
-          <input required type="text" class="form-control" placeholder="Num." id="numero" formControlName="numero" pattern="[0-9]+">
+          <input required type="text" class="form-control" placeholder="Número" id="numero" formControlName="numero" pattern="[0-9]+">
         </div>
-        <div class="form-group col-8 input-group espacamento">
+        
+        <div class="form-group col-lg-8 input-group">
           <div class="input-group-prepend">
             <label for="endereco" class="input-group-text">Endereço</label>
           </div>
-          <input required type="text" class="form-control" placeholder="Endereco" id="endereco" formControlName="endereco">
+          <input required type="text" class="form-control" placeholder="Endereço" id="endereco" formControlName="endereco">
         </div>
       </div>
 
       <!-- TRATAMENTO DE ERROS DA ROW 1 -->
       <div class="row">
-        <div class="col-4">
+        <div class="col-lg-4">
           <div *ngIf="formGroup.controls['numero'].errors && (formGroup.controls['numero'].dirty || formGroup.controls['numero'].touched)"
             class="alert alert-danger">
             Número do colegio é obrigatório
           </div>
         </div>
-        <div class="col-8">
+        <div class="col-lg-8">
 
           <div *ngIf="formGroup.controls['endereco'].errors && (formGroup.controls['endereco'].dirty || formGroup.controls['endereco'].touched)"
             class="alert alert-danger">
@@ -53,14 +55,14 @@
 
       <div class="form-row mt-3">
         <!-- INICIO ROW 2 -->
-        <div class="form-group col-7 input-group">
+        <div class="form-group col-lg-7 input-group">
           <div class="input-group-prepend">
             <label for="telefone" class="input-group-text">Telefone</label>
           </div>
           <input type="text" class="form-control" placeholder="(00) 0000-0000" id="telefone" formControlName="telefone">
         </div>
 
-        <div class="form-group col-5 input-group">
+        <div class="form-group col-lg-5 input-group">
           <div class="input-group-prepend">
             <label for="rede" class="input-group-text">Rede</label>
           </div>
@@ -86,7 +88,7 @@
           </div>
         </div>
       </div>
-      
+
 
       <!-- FIM ROW 2 -->
 

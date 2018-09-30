@@ -1,0 +1,136 @@
+<div class="container">
+
+  <div class="col-md-12">
+
+    <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
+      Alunos
+    </h2>
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+
+  </div>
+
+  <div class="col-md-12">
+
+    <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="nome" matSortDirection="asc">
+
+      <ng-container matColumnDef="nome" class="md-2">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.nome}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="valor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.valor}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="vencimento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Vencimento</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.vencimentoMensalidade}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>status</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.status}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="outros">
+        <mat-header-cell *matHeaderCellDef>Opções</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <button type="button" class="btn btn-link" (click)="openModal(template)">
+                <img src="svg/magnifying-glass.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Visualizar aluno {{aluno.nome}}">
+              </button>
+            </li>
+
+            <!-- MODAL -->
+            <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">{{aluno.nome}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                  <strong>Data registro: {{aluno.registro}}</strong>
+                </span>
+                <br>
+                <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                  {{aluno.status}}
+                </span>
+                <br>
+                <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                  {{aluno.periodo}}
+                </span>
+                <br>
+                <strong>Celular Aluno: </strong> {{aluno.celular}}
+                <br>
+                <strong>Nome pai: </strong> {{aluno.pai}}
+                <br>
+                <strong>Nome mae: </strong> {{aluno.mae}}
+                <br>
+                <strong>Valor mesalidade: R$: </strong> {{aluno.valor}}
+                <br>
+                <strong>Data vencimento: </strong> {{aluno.vencimentoMensalidade}}
+                <br>
+                <strong>Recado: </strong> {{aluno.recado}}
+              </div>
+            </ng-template>
+            <!-- FIM MODAL -->
+            <li class="list-inline-item">
+              <a routerLink="/edit/aluno/{{aluno.id}}">
+                <img src="svg/pencil.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Editar aluno {{aluno.nome}}">
+              </a>
+            </li>
+
+            <li class="list-inline-item">
+              <button type="button" class="btn btn-link" (click)="openModal(deletaraluno)">
+                <img src="svg/trash.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Remover aluno {{aluno.nome}}">
+              </button>
+
+            </li>
+            <!-- MODAL -->
+            <ng-template #deletaraluno>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Deseja deletar o Veículo: {{aluno.nome}}</h4>
+
+                <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                  <strong>Data registro: {{aluno.registro}}</strong>
+                </span>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Cancelar</button>
+                <a (click)="delete(aluno)">
+
+                </a>
+                <button type="button" class="btn btn-success float-right">Confirmar</button>
+              </div>
+
+            </ng-template>
+            <!-- FIM MODAL -->
+
+          </ul>
+
+        </mat-cell>
+
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+
+      <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+
+    </table>
+
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+  </div>
+
+</div>

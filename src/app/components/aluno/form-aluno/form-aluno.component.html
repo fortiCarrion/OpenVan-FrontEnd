@@ -1,0 +1,105 @@
+<div class="container background">
+  <h2 class="text-center">{{title}}</h2>
+  <hr>
+
+  <div [hidden]="submitted" class="col-md-12">
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <label for="nome" class="input-group-text" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Nome</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome do aluno" id="nome" formControlName="nome" name="nome">
+      </div>
+      <div *ngIf="formGroup.controls['nome'].errors && (formGroup.controls['nome'].dirty || formGroup.controls['nome'].touched)"
+        class="alert alert-danger">
+        Nome do aluno é obrigatório
+      </div>
+
+      <div class="form-group input-group mb-3">
+        <div class="input-group-prepend">
+          <label for="pai" class="input-group-text">Nome Pai</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome do Pai" id="pai" formControlName="pai" name="pai">
+      </div>
+
+      <div class="form-group input-group mb-3">
+        <div class="input-group-prepend">
+          <label for="mae" class="input-group-text">Nome Mãe</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome da Mãe" id="mae" formControlName="mae"  name="mae">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-4">
+          <div class="input-group-prepend">
+            <label for="colegio" class="input-group-text">Colegio</label>
+          </div>
+          <select required class="form-control" id="colegio" formControlName="colegio" name="colegio">
+            <option *ngFor="let c of colegios" [value]="c">{{c.nome}}</option>
+          </select>
+        </div>
+
+        <div class="form-group input-group mb-3 col-8">
+          <div class="input-group-prepend">
+            <label for="periodo" class="input-group-text">Periodo</label>
+          </div>
+          <select required class="form-control" id="periodo" formControlName="periodo">
+            <option *ngFor="let p of periodos; first as f" [value]="p" [selected]="f">{{p}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-6">
+          <div class="input-group-prepend">
+            <label for="veiculo" class="input-group-text">Numero do veiculo</label>
+          </div>
+          <select required class="form-control" id="veiculo" formControlName="veiculo" name="veiculo">
+            <option *ngFor="let num of numero_veiculo" [value]="num">{{num}}</option>
+          </select>
+        </div>
+        <div class="form-group input-group mb-3 col-6">
+          <div class="input-group-prepend">
+            <label for="celular_aluno" class="input-group-text">Celular</label>
+          </div>
+          <input type="text" class="form-control" placeholder="(00) 0000-0000" id="celular_aluno" formControlName="celular" name="celular_aluno">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-6">
+          <div class="input-group-prepend">
+            <label for="valor" class="input-group-text">Valor R$:</label>
+          </div>
+          <input required type="text" class="form-control" placeholder="00,00" id="valor" formControlName="valor" name="valor">
+        </div>
+        <div class="form-group input-group mb-3 col-6">
+          <div class="input-group-prepend">
+            <label for="vencimento" class="input-group-text">Dia Vencimento</label>
+          </div>
+          <select required class="form-control" id="vencimento" formControlName="vencimento" name="vencimento">
+            <option *ngFor="let ven of vencimento_pagamentos" [value]="ven">{{ven}}</option>
+          </select>
+        </div>
+      </div>
+
+      <h5>Endereços</h5>
+      <!-- ENDEREÇO -->
+
+      <br>
+
+      <div class="form-group">
+        <label for="recado">
+          <strong>Recado</strong>
+        </label>
+        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Observacao ..." formControlName="recado" name="recado"></textarea>
+      </div>
+
+      <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="goBack()">
+        Cadastrar</button>
+    </form>
+
+  </div>
+</div>
