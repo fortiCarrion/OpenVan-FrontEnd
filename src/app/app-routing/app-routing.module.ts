@@ -8,6 +8,7 @@ import { HomeComponent } from '../components/home/home.component';
 import { ListColegiosComponent } from '../components/colegio/list-colegios/list-colegios.component';
 import { FormColegioComponent } from '../components/colegio/form-colegio/form-colegio.component';
 import { ListVeiculosComponent } from '../components/veiculo/list-veiculos/list-veiculos.component';
+import { FormVeiculosComponent } from '../components/veiculo/form-veiculos/form-veiculos.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
     {path: 'cadastrar/colegio', component: FormColegioComponent},
  
     // Veiculo
-    {path: 'listagem/veiculos', component: ListVeiculosComponent}
+    {path: 'listagem/veiculos', component: ListVeiculosComponent},
+    {path: 'cadastrar/veiculo', component: FormVeiculosComponent}
     
   ];
   

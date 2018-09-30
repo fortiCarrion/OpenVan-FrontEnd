@@ -18,7 +18,6 @@ export class FormColegioComponent implements OnInit {
 
   redes = ['Estadual', 'Municipal', 'Particular'];
   http: any;
-  //model: ColegioDTO = new ColegioDTO(-1, null, '', '', null, '', '',null);
 
   constructor(
     private location: Location,
@@ -27,36 +26,51 @@ export class FormColegioComponent implements OnInit {
     public formBuilder: FormBuilder
   ) {
     this.formGroup = this.formBuilder.group({
-      rede: [this.redes[0], [Validators.required]],
-      nome: ['maxi', [Validators.required,Validators.minLength(4), Validators.maxLength(50)]],
-      endereco: ['av. rddda', [Validators.required,Validators.minLength(10), Validators.maxLength(50)]],
-      numero: ['1234', [Validators.required,Validators.minLength(1), Validators.maxLength(5)]],
-      telefone: ['33456845', [Validators.minLength(8), Validators.maxLength(14)]],
-      website: ['www.asdads.', [Validators.minLength(10), Validators.maxLength(100)]]
+      rede: ['', [Validators.required]],
+      nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      endereco: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+      numero: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]],
+      telefone: ['', [Validators.minLength(8), Validators.maxLength(14)]],
+      website: ['', [Validators.minLength(10), Validators.maxLength(100)]]
     });
   }
 
   ngOnInit() {
-    //this.formGroup.controls.rede.setValue(this.redes[1]);
+   
   }
 
   onSubmit(): void {
     console.log("onsubmit");
+    this.toNumRede(this.formGroup.controls['rede'].value);
     this.insert();
   }
 
-  insert(){
+  insert() {
     console.log(this.formGroup.value);
     this.colegioService.insert(this.formGroup.value)
       .subscribe(response => {
         this.showInsertOk();
       },
 
-      error => {});
+        error => { });
   }
 
-  showInsertOk(){
+  showInsertOk() {
     console.log("criado");
+  }
+
+  toNumRede(rede: string) {
+
+    if (rede == "Estadual") {
+      this.formGroup.patchValue({ "rede": "1" });
+    } else if (rede == "Municipal") {
+      this.formGroup.patchValue({ "rede": "2" });
+    } else {
+      this.formGroup.patchValue({ "rede": "3" });
+    }
+  }
+  goBack(): void {
+    this.location.back();
   }
 
 }

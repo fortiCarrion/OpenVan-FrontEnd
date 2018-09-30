@@ -97,8 +97,8 @@
         <input type="text" class="form-control" placeholder="Website" id="site" formControlName="website">
       </div>
 
-      <a class="btn btn-secondary">Voltar</a>
-      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid">
+      <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="goBack()">
         Cadastrar</button>
     </form>
 

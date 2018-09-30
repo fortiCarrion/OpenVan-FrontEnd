@@ -22,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FormColegioComponent } from './components/colegio/form-colegio/form-colegio.component';
 import { ListVeiculosComponent } from './components/veiculo/list-veiculos/list-veiculos.component';
 import { VeiculoService } from './services/domain/veiculo.service';
+import { FormVeiculosComponent } from './components/veiculo/form-veiculos/form-veiculos.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { VeiculoService } from './services/domain/veiculo.service';
     ListColegiosComponent,
     HomeComponent,
     FormColegioComponent,
-    ListVeiculosComponent
+    ListVeiculosComponent,
+    FormVeiculosComponent
   ],
   imports: [
     BrowserModule,
