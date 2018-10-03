@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { VeiculoService } from '../../../services/domain/veiculo.service';
 import { VeiculoDTO } from '../../../models/veiculo.dto';
@@ -7,6 +7,8 @@ import { ColegioDTO } from '../../../models/colegio.dto';
 import { ColegioService } from '../../../services/domain/colegio.service';
 import { AlunoDTO, Endereco } from '../../../models/aluno.dto';
 import { ActivatedRoute } from '@angular/router';
+import { error } from 'util';
+import { AlunoService } from '../../../services/domain/aluno.service';
 
 @Component({
   selector: 'app-form-aluno',
@@ -15,12 +17,39 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FormAlunoComponent implements OnInit {
 
+  data = {
+    enderecos: [
+      {
+        endereco: "",
+        numero: "",
+        bairro: "",
+        complemento: ""
+      }
+    ],
+
+    contatos: [
+      {
+        referencia: "",
+        celular: "",
+        comercial: "",
+        residencial: ""
+      }
+    ],
+
+    colegio: {
+      id: null
+    }
+  }
+
   formGroup: FormGroup;
 
   title = 'Cadastrar Aluno';
 
+  private veiculo_id: any;
+  private colegio_id: any;
+
   periodos: string[] = ['Matutino', 'Vespertino', 'Noturno'];
-  status: string[] = ['Ativo', 'Inativo'];
+  //status: string[] = ['Ativo', 'Inativo'];
   vencimento_pagamentos: number[] = [5, 10, 15, 20, 25];
   numero_veiculo: number[];
   http: any;
@@ -30,24 +59,14 @@ export class FormAlunoComponent implements OnInit {
 
   veiculo_numero: any[];
 
-  today = new Date();
-
-  //veiculo = new Veiculo(1, 1, 'Mercurio', 'status[0]', 2016, 'Renault h5', 'Nenhum recado existente', null);
-  //veiculo_blank = new Veiculo(null, null, '', '', null, '', '', null);
-  //colegio = new Colegio(1, 'londrinense', 'Av. Duque de Caxias', 1589, '(43) 3372-5555', 'http://www.colegiomaxi.com.br/', 'teste');
-  //colegio_blank = new Colegio(null, '', '', null, '', '', '');
-  // tslint:disable-next-line:max-line-length
-  //model: Aluno = new Aluno(1, this.veiculo, this.colegio, 'ruan', 'arauto', 'vanessa', null, null, this.periodo[1], null, '43 0000-0000', null, 'ativo', 'nenhum recado');
-  //model_blank = new Aluno(-1, this.veiculo_blank, this.colegio_blank, '', '', '', [], [], '', null, '', null, '', '');
-  aluno_em_criacao: AlunoDTO;
-
   constructor(
     private location: Location,
     private route: ActivatedRoute,
     public formBuilder: FormBuilder,
 
     public veiculoService: VeiculoService,
-    public colegioService: ColegioService
+    public colegioService: ColegioService,
+    public alunoService: AlunoService
   ) {
     this.formGroup = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -55,23 +74,54 @@ export class FormAlunoComponent implements OnInit {
       mae: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       periodo: ['', [Validators.required]],
       celular: ['', [Validators.minLength(8), Validators.maxLength(14)]],
-      status: new FormControl (this.status[0], Validators.required),
+      status: new FormControl(1, Validators.required),
       recado: ['', [Validators.maxLength(150)]],
-      valor: ['', [Validators.min(2)]],
-      vencimento: ['', [Validators.max(2)]],
-      colegio: ['', Validators.required],
-      veiculo: ['', [Validators.required]],
-      enderecos: ['']
+      valor: ['', [Validators.minLength(5)]],
+      vencimentoMensalidade: ['', [Validators.required]],
+      colegio: this.formBuilder.group({
+        id: [null, Validators.required],
+      }),
+      veiculo: this.formBuilder.group({
+        id: [null, [Validators.required]]
+      }),
+      enderecos: this.formBuilder.array([
+
+      ]),
+      contatos: this.formBuilder.array([
+
+      ]),
     });
-    //this.aluno_em_criacao = this.model_blank;
-    //console.log(this.aluno_em_criacao);
+
   }
 
   ngOnInit() {
     this.getVeiculos();
     this.getColegios();
-    // Na hora da implementação verificar a linha de baixo
-    //this.model = this.model_blank;
+
+    this.setEnderecos();
+    this.setContatos();
+  }
+
+  onSubmit() {
+    this.toNumPeriodo(this.formGroup.controls['periodo'].value);
+    this.toNumDiaVencimento(this.formGroup.controls['vencimentoMensalidade'].value);
+    this.toNumColegio();
+    this.toNumVeiculo();
+    //this.formGroup.controls['colegio'].setValue(this.colegio_id);
+    //this.toNumColegio();
+
+    this.insert();
+  }
+
+  test() {
+    console.log("----");
+    this.toNumColegio();
+    this.toNumVeiculo();
+    //this.formGroup.patchValue({"colegio.id": 10});
+
+    console.log(this.formGroup.controls['colegio'].value);
+    console.log(this.formGroup.get('colegio.id'));
+    console.log(this.formGroup.value);
   }
 
   getVeiculos(): void {
@@ -93,34 +143,138 @@ export class FormAlunoComponent implements OnInit {
           console.log(error);
         });
   }
-  addEnderecoPressed(): void {
-    console.log('enderecos pressed');
-    if (!this.aluno_em_criacao.enderecos) {
-      this.aluno_em_criacao.enderecos = [{ id: null, endereco: null, numero: null, bairro: null, complemento: null }];
-    } else {
-      this.aluno_em_criacao.enderecos.push({ id: null, endereco: null, numero: null, bairro: null, complemento: null });
-    }
-  }
-
-  removeEnderecoIndex(index): void {
-    this.aluno_em_criacao.enderecos.splice(index, 1);
-  }
-
-  addContatoPressed(): void {
-    console.log('contatos pressed');
-    if (!this.aluno_em_criacao.contatos) {
-      this.aluno_em_criacao.contatos = [{ id: null, referencia: null, celular: null, residencial: null, comercial: null }];
-    } else {
-      this.aluno_em_criacao.contatos.push({ id: null, referencia: null, celular: null, residencial: null, comercial: null });
-    }
-  }
-
-  removeContatoIndex(index): void {
-    this.aluno_em_criacao.contatos.splice(index, 1);
-  }
-
 
   goBack(): void {
     this.location.back();
   }
+
+  toNumColegio() {
+    let colegio_id = this.formGroup.value.colegio.id;
+
+    let control = <FormGroup>this.formGroup.controls.colegio;
+    control.controls['id'].setValue(parseInt(colegio_id));
+  }
+
+  toNumVeiculo() {
+    let veiculo_id = this.formGroup.value.veiculo.id;
+
+    let control = <FormGroup>this.formGroup.controls.veiculo;
+    control.controls['id'].setValue(parseInt(veiculo_id));
+  }
+
+  toNumPeriodo(periodo: string) {
+
+    if (periodo == "Matutino") {
+      this.formGroup.patchValue({ "periodo": 1 });
+    } else if (periodo == "Vespertino") {
+      this.formGroup.patchValue({ "periodo": 2 });
+    } else {
+      this.formGroup.patchValue({ "periodo": 3 });
+    }
+  }
+
+  toNumDiaVencimento(dia: string) {
+
+    switch (dia) {
+      case "5": {
+        this.formGroup.patchValue({ "vencimentoMensalidade": 5 });
+        break;
+      }
+      case "10": {
+        this.formGroup.patchValue({ "vencimentoMensalidade": 10 });
+        break;
+      }
+      case "15": {
+        this.formGroup.patchValue({ "vencimentoMensalidade": 15 });
+        break;
+      }
+      case "20": {
+        this.formGroup.patchValue({ "vencimentoMensalidade": 20 });
+        break;
+      }
+      case "25": {
+        this.formGroup.patchValue({ "vencimentoMensalidade": 25 });
+        break;
+      }
+    }
+  }
+
+  insert() {
+    console.log(this.formGroup.value);
+    this.alunoService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+        this.goBack();
+      },
+
+        error => { });
+  }
+
+  showInsertOk() {
+    console.log("aluno cadastrado");
+  }
+  // -----------------------------------------------------
+  // ENDERECOS
+
+  addNewEndereco() {
+    let control = <FormArray>this.formGroup.controls.enderecos;
+    control.push(
+      this.formBuilder.group({
+        endereco: [''],
+        numero: [''],
+        bairro: [''],
+        complemento: ['']
+      })
+    )
+  }
+
+  setEnderecos() {
+    let control = <FormArray>this.formGroup.controls.enderecos;
+    this.data.enderecos.forEach(x => {
+      control.push(this.formBuilder.group({
+        endereco: x.endereco,
+        numero: x.numero,
+        bairro: x.bairro,
+        complemento: x.complemento
+      }))
+    })
+  }
+
+  deleteEndereco(index) {
+    let control = <FormArray>this.formGroup.controls.enderecos;
+    control.removeAt(index)
+  }
+
+
+  // -----------------------------------------------------
+  // ENDERECOS
+  addNewContato() {
+    let control = <FormArray>this.formGroup.controls.contatos;
+    control.push(
+      this.formBuilder.group({
+        referencia: [''],
+        celular: [''],
+        residencial: [''],
+        comercial: ['']
+      })
+    )
+  }
+
+  setContatos() {
+    let control = <FormArray>this.formGroup.controls.contatos;
+    this.data.contatos.forEach(x => {
+      control.push(this.formBuilder.group({
+        referencia: x.referencia,
+        celular: x.celular,
+        residencial: x.residencial,
+        comercial: x.comercial
+      }))
+    })
+  }
+
+  deleteContato(index) {
+    let control = <FormArray>this.formGroup.controls.contatos;
+    control.removeAt(index)
+  }
+
 }

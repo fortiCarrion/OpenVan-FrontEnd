@@ -1,10 +1,4 @@
-interface ColegioAluno {
-    id: string;
-}
-
-interface VeiculoAluno {
-    id: string;
-}
+import { RefDTO } from "./ref.dto";
 
 export interface Contato {
     id: string;
@@ -33,10 +27,9 @@ export interface AlunoDTO {
     recado: string;
     valor: number;
     vencimento: number;
-    registro: Date;
     enderecos: Endereco[];
     contatos: Contato[];
-    colegio: ColegioAluno;
-    veiculo: VeiculoAluno;
+    colegio: RefDTO;
+    veiculo: RefDTO;
 
 }

@@ -17,6 +17,7 @@ export class AlunoService {
     }
 
     insert(obj: AlunoDTO) {
+        
         return this.http.post(
             `${API_CONFIG.baseUrl}/alunos`,
             obj,

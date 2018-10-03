@@ -1,8 +1,8 @@
 <div class="container background">
-  <h2 class="text-center">{{title}}</h2>
+  <h2 class="text-center" style="margin-top: 10px;">{{title}}</h2>
   <hr>
 
-  <div [hidden]="submitted" class="col-md-12">
+  <div [hidden]="submitted" class="col-md-12" style="margin-bottom: 20px;">
 
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <div class="form-group input-group espacamento">

@@ -1,5 +1,5 @@
 export interface ColegioDTO {
-    id: string;
+    id: number;
     rede: number;
     nome: string;
     endereco: string;
