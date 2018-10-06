@@ -1,7 +1,7 @@
 <div class="container background">
-  <h2 class="text-center">{{title}}</h2>
+  <h2 class="text-center" style="margin-top: 10px;">{{title}}</h2>
   <hr>
-  <div [hidden]="submitted" class="col-md-12">
+  <div [hidden]="submitted" class="col-md-12" style="margin-bottom: 20px;">
 
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
       <div class="form-group input-group espacamento" style="margin-bottom: 0px">
@@ -16,21 +16,22 @@
       </div>
 
       <div class="form-row mt-3">
-        <div class="form-group col-4 input-group">
+        <div class="form-group col-lg-4 input-group">
           <div class="input-group-prepend">
-            <label for="numero" class="input-group-text">Numero</label>
+            <label for="numero" class="input-group-text">Número</label>
           </div>
-          <input type="number" class="form-control" placeholder="Num." id="numero" required name="numero" formControlName="numero">
+          <input type="number" class="form-control" placeholder="Número do veículo" id="numero" required name="Número do veículo" formControlName="numero">
         </div>
 
-        <div class="form-group col-3 input-group">
+        <div class="form-group col-lg-3 input-group">
           <div class="input-group-prepend">
             <label for="ano" class="input-group-text">Ano</label>
           </div>
-          <input type="text" class="form-control" placeholder="Ano" id="ano" pattern="[0-9]+" name="ano" formControlName="ano">
+          <input type="number" class="form-control" placeholder="Ano" id="ano" pattern="[0-9]+" name="ano" formControlName="ano" min="1999"
+            max="2022">
         </div>
 
-        <div class="form-group col-5 input-group">
+        <div class="form-group col-lg-5 input-group">
           <div class="input-group-prepend">
             <label for="status" class="input-group-text">Status</label>
           </div>
@@ -51,14 +52,32 @@
         <label for="recado">
           <strong>Recado</strong>
         </label>
-        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Observacao ..." name="recado"></textarea>
+        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Escrever alguma observação ..." name="recado" formControlName="recado"></textarea>
       </div>
 
       <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
-      <button type="submit" class="btn btn-success float-right" [disabled]="!veiculoForm.form.valid">
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="modal_success = sucesso; modal_error = falha">
         Cadastrar</button>
     </form>
 
+    <!--  -->
+    <ng-template #sucesso>
+      <div class="alert alert-success" role="alert" style="margin: 0px 0px;">
+        <strong>Veículo Cadastrado ;)</strong>
+      </div>
+    </ng-template>
+
+    <!--  -->
+    <ng-template #falha>
+        <div class="alert alert-danger" role="alert" style="margin: 0px 0px;">
+          <strong>Falha ao cadastrar veículo :(</strong>
+          <hr>
+          <p>
+            {{error_message}}
+          </p>
+        </div>
+      </ng-template>
+    
   </div>
 
 </div>

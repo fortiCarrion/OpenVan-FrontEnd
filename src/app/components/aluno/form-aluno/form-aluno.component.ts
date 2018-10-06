@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { Location } from '@angular/common';
 import { VeiculoService } from '../../../services/domain/veiculo.service';
@@ -9,6 +9,7 @@ import { AlunoDTO, Endereco } from '../../../models/aluno.dto';
 import { ActivatedRoute } from '@angular/router';
 import { error } from 'util';
 import { AlunoService } from '../../../services/domain/aluno.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-form-aluno',
@@ -35,18 +36,13 @@ export class FormAlunoComponent implements OnInit {
         residencial: ""
       }
     ],
-
-    colegio: {
-      id: null
-    }
   }
 
   formGroup: FormGroup;
+  modalRef: BsModalRef;
 
   title = 'Cadastrar Aluno';
-
-  private veiculo_id: any;
-  private colegio_id: any;
+  error = 'Não padronizado';
 
   periodos: string[] = ['Matutino', 'Vespertino', 'Noturno'];
   //status: string[] = ['Ativo', 'Inativo'];
@@ -66,7 +62,8 @@ export class FormAlunoComponent implements OnInit {
 
     public veiculoService: VeiculoService,
     public colegioService: ColegioService,
-    public alunoService: AlunoService
+    public alunoService: AlunoService,
+    private modalService: BsModalService
   ) {
     this.formGroup = this.formBuilder.group({
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -111,17 +108,6 @@ export class FormAlunoComponent implements OnInit {
     //this.toNumColegio();
 
     this.insert();
-  }
-
-  test() {
-    console.log("----");
-    this.toNumColegio();
-    this.toNumVeiculo();
-    //this.formGroup.patchValue({"colegio.id": 10});
-
-    console.log(this.formGroup.controls['colegio'].value);
-    console.log(this.formGroup.get('colegio.id'));
-    console.log(this.formGroup.value);
   }
 
   getVeiculos(): void {
@@ -204,6 +190,7 @@ export class FormAlunoComponent implements OnInit {
     this.alunoService.insert(this.formGroup.value)
       .subscribe(response => {
         this.showInsertOk();
+        //this.openModal();
         this.goBack();
       },
 
@@ -213,6 +200,12 @@ export class FormAlunoComponent implements OnInit {
   showInsertOk() {
     console.log("aluno cadastrado");
   }
+
+  openModal(inserido: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(inserido);
+    setTimeout(this.modalRef.hide, 4000);
+  }
+
   // -----------------------------------------------------
   // ENDERECOS
 

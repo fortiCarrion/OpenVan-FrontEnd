@@ -88,49 +88,49 @@
       <legend>
         <h5>Endereços</h5>
       </legend>
-        <!-- ENDEREÇO -->
-        <div formArrayName="enderecos">
-          <div class="form-row mb-1" *ngFor="let end of formGroup.get('enderecos').controls; let i = index">
+      <!-- ENDEREÇO -->
+      <div formArrayName="enderecos">
+        <div class="form-row mb-1" *ngFor="let end of formGroup.get('enderecos').controls; let i = index">
 
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="endereco" class="input-group-text">Endereço</label>
-                  <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço">
-                </div>
-              </div>
-
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="numero" class="input-group-text">Número</label>
-                  <input type="number" class="form-control" id="numero" formControlName="numero" placeholder="Número">
-                </div>
-              </div>
-
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="bairro" class="input-group-text">Bairro</label>
-                  <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
-                </div>
-              </div>
-
-            <div class="form-group col-lg-10">
-              <div [formGroupName]="i" class="input-group-prepend">
-                <label class="input-group-text" for="complemento">Complemento</label>
-                <input type="text" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <button type="button" class="btn btn-danger" (click)="deleteEndereco(i)">
-                <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
-                Remover Endereço
-              </button>
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="endereco" class="input-group-text">Endereço</label>
+              <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço">
             </div>
           </div>
-          <div>
-            <button type="button" class="btn btn-info" (click)="addNewEndereco()">Novo Endereço</button>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="numero" class="input-group-text">Número</label>
+              <input type="number" class="form-control" id="numero" formControlName="numero" placeholder="Número">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="bairro" class="input-group-text">Bairro</label>
+              <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-10">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label class="input-group-text" for="complemento">Complemento</label>
+              <input type="text" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger" (click)="deleteEndereco(i)">
+              <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
+              Remover Endereço
+            </button>
           </div>
         </div>
+        <div>
+          <button type="button" class="btn btn-info" (click)="addNewEndereco()">Novo Endereço</button>
+        </div>
+      </div>
 
       <br>
       <legend>
@@ -138,47 +138,47 @@
       </legend>
       <!-- CONTATOS -->
       <div formArrayName="contatos">
-          <div class="form-row mb-1" *ngFor="let end of formGroup.get('contatos').controls; let i = index">
+        <div class="form-row mb-1" *ngFor="let end of formGroup.get('contatos').controls; let i = index">
 
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="referencia" class="input-group-text">Referência</label>
-                  <input type="text" class="form-control" id="referencia" formControlName="referencia" placeholder="Nome do contato">
-                </div>
-              </div>
-
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="comercial" class="input-group-text">Comercial</label>
-                  <input type="number" class="form-control" id="comercial" formControlName="comercial" placeholder="(00) 0000-0000">
-                </div>
-              </div>
-
-              <div class="form-group col-lg-4">
-                <div [formGroupName]="i" class="input-group-prepend">
-                  <label for="residencial" class="input-group-text">Residencial</label>
-                  <input type="text" class="form-control" id="residencial" formControlName="residencial" placeholder="(00) 0000-0000">
-                </div>
-              </div>
-
-            <div class="form-group col-lg-10">
-              <div [formGroupName]="i" class="input-group-prepend">
-                <label class="input-group-text" for="celular">Celular</label>
-                <input type="text" class="form-control" id="celular" formControlName="celular" placeholder="(00) 0000-0000">
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <button type="button" class="btn btn-danger" (click)="deleteContato(i)">
-                <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
-                Remover Contato
-              </button>
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="referencia" class="input-group-text">Referência</label>
+              <input type="text" class="form-control" id="referencia" formControlName="referencia" placeholder="Nome do contato">
             </div>
           </div>
-          <div>
-            <button type="button" class="btn btn-info" (click)="addNewContato()">Novo Contato</button>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="comercial" class="input-group-text">Comercial</label>
+              <input type="number" class="form-control" id="comercial" formControlName="comercial" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="residencial" class="input-group-text">Residencial</label>
+              <input type="text" class="form-control" id="residencial" formControlName="residencial" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-10">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label class="input-group-text" for="celular">Celular</label>
+              <input type="text" class="form-control" id="celular" formControlName="celular" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger" (click)="deleteContato(i)">
+              <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
+              Remover Contato
+            </button>
           </div>
         </div>
+        <div>
+          <button type="button" class="btn btn-info" (click)="addNewContato()">Novo Contato</button>
+        </div>
+      </div>
 
 
       <br>
@@ -186,13 +186,31 @@
         <label for="recado">
           <strong>Recado</strong>
         </label>
-        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Adicionar algum recado ..." formControlName="recado" name="recado"></textarea>
+        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Adicionar algum recado ..." formControlName="recado"
+          name="recado"></textarea>
       </div>
 
       <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
-      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid">
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="openModal(inserido)">
         Cadastrar</button>
     </form>
+
+    <ng-template #inserido>
+      <div class="alert alert-success" role="alert">
+        <strong>Aluno Cadastrado</strong>
+      </div>
+    
+    </ng-template>
+    <ng-template #erro>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Erro ao cadastrar Aluno</strong> 
+            <hr>
+            {{error}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    </ng-template>
 
   </div>
 </div>
