@@ -1,9 +1,7 @@
 <div class="container">
-
-  <div class="col-md-12">
-
+  <div class="col-lg-12">
     <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
-      Frota de veículos
+      {{title}}
     </h2>
 
     <mat-form-field>
@@ -96,6 +94,7 @@
                   <strong>Data registro: {{veiculo.registro}}</strong>
                 </span>
                 <br>
+                <span>Para poder remover o veículo não se deve ter alunos vinculados a ele.</span>
                 <br>
                 <br>
                 <br>
@@ -103,7 +102,7 @@
                 <a (click)="delete(veiculo)">
 
                 </a>
-                <button type="button" class="btn btn-success float-right">Confirmar</button>
+                <button type="button" class="btn btn-danger float-right">Confirmar</button>
               </div>
 
             </ng-template>

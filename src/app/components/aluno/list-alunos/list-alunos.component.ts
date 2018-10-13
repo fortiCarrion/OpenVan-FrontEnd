@@ -74,6 +74,7 @@ export class ListAlunosComponent implements OnInit {
         this.alunos = response;
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
         error => {
           console.log(error);

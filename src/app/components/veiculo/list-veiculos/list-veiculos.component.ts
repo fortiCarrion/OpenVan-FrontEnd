@@ -26,7 +26,7 @@ export class ListVeiculosComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: any;
 
-  title: String = 'Veículos';
+  title: String = 'Frota de veículos';
 
 
   veiculos: VeiculoDTO[];
@@ -59,7 +59,7 @@ export class ListVeiculosComponent implements OnInit {
     const part = this.array.slice(start, end);
     this.dataSource = part;
   }
-  
+
   private getArray() {
     this.veiculoService.findAll()
       .subscribe((response) => {
@@ -77,6 +77,7 @@ export class ListVeiculosComponent implements OnInit {
         this.veiculos = response;
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
         error => {
           console.log(error);
