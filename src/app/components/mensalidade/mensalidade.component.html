@@ -1,0 +1,94 @@
+<div class="container">
+
+  <div class="col-md-12">
+
+    <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
+      {{title}}
+    </h2>
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+    </mat-form-field>
+
+  </div>
+
+  <div class="col-md-12" style="margin-bottom: 10px">
+
+    <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="aluno" matSortDirection="asc">
+
+      <ng-container matColumnDef="aluno" class="md-2">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Aluno</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">{{mensalidade.aluno.nome}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="emissao">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Emissao</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">{{mensalidade.emissao}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">{{mensalidade.status}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="vencimento">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Vencimento</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">{{mensalidade.vencimento}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="visualizar">
+        <mat-header-cell *matHeaderCellDef>Visualizar</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <button type="button" class="btn btn-link">
+                <img src="svg/magnifying-glass.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Visualizar mensalidade {{mensalidade.aluno.nome}}">
+              </button>
+            </li>
+          </ul>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="confirmar_pagamento">
+        <mat-header-cell *matHeaderCellDef>Confirmar Pagamento</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">
+          <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+
+          <!-- MODAL -->
+          <ng-template #confirmarPagamento>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">CONFIRMAR PAGAMENTO ?</h4>
+
+              <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
+                <strong>{{mensalidade.aluno.nome}}</strong>
+              </span>
+              <br>
+              <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
+                  <strong>{{mensalidade.emissao}}</strong>
+                </span>
+              <br>
+              <br>
+              <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancelar</button>
+
+              <button type="button" class="btn btn-success float-right">Confirmar</button>
+            </div>
+
+          </ng-template>
+          <!-- FIM MODAL -->
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+
+      <mat-row *matRowDef="let row; columns:displayedColumns"></mat-row>
+
+    </table>
+
+    <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+    </mat-paginator>
+  </div>
+
+</div>

@@ -11,6 +11,7 @@ import { ListVeiculosComponent } from '../components/veiculo/list-veiculos/list-
 import { FormVeiculosComponent } from '../components/veiculo/form-veiculos/form-veiculos.component';
 import { ListAlunosComponent } from '../components/aluno/list-alunos/list-alunos.component';
 import { FormAlunoComponent } from '../components/aluno/form-aluno/form-aluno.component';
+import { MensalidadeComponent } from '../components/mensalidade/mensalidade.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,10 @@ const routes: Routes = [
 
     // Aluno
     {path: 'listagem/alunos', component: ListAlunosComponent},
-    {path: 'cadastrar/aluno', component: FormAlunoComponent}
+    {path: 'cadastrar/aluno', component: FormAlunoComponent},
+
+    // Mensalidade
+    {path: 'listagem/mensalidades', component: MensalidadeComponent}
     
     
   ];

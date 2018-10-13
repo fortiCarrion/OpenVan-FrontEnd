@@ -26,6 +26,8 @@ import { FormVeiculosComponent } from './components/veiculo/form-veiculos/form-v
 import { ListAlunosComponent } from './components/aluno/list-alunos/list-alunos.component';
 import { AlunoService } from './services/domain/aluno.service';
 import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.component';
+import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
+import { MensalidadeService } from './services/domain/mensalidade.service';
 
 
 
@@ -39,7 +41,8 @@ import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.com
     ListVeiculosComponent,
     FormVeiculosComponent,
     ListAlunosComponent,
-    FormAlunoComponent
+    FormAlunoComponent,
+    MensalidadeComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.com
   providers: [
     ColegioService,
     VeiculoService,
-    AlunoService
+    AlunoService,
+    MensalidadeService
   ],
   bootstrap: [AppComponent]
 })
