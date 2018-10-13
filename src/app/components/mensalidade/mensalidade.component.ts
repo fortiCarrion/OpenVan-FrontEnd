@@ -4,6 +4,7 @@ import { MensalidadeDTO } from '../../models/mensalidade.dto';
 import { MensalidadeService } from '../../services/domain/mensalidade.service';
 import { MatSort, MatSortable, MatTableDataSource, PageEvent, MatPaginator } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
+import {DateFormatPipe} from '../../date-format/date-format';
 
 @Component({
   selector: 'app-mensalidade',
@@ -24,6 +25,7 @@ export class MensalidadeComponent implements OnInit {
   dataSource: any;
 
   title = 'Mensalidades';
+  aguardandoPagamento = 'AGUARDANDO PAGAMENTO';
   
   selectedMensalidade: MensalidadeDTO;
   modalRef: BsModalRef;
@@ -31,7 +33,7 @@ export class MensalidadeComponent implements OnInit {
   mensalidades: MensalidadeDTO[];
 
   //displayedColumns: string[] = ['aluno', 'emissao', 'status','vencimento', 'visualizar', 'confirmar pagamento'];
-  displayedColumns: string[] = ['aluno', 'emissao', 'status','vencimento', 'visualizar', 'confirmar_pagamento'];
+  displayedColumns: string[] = ['aluno', 'emissao', 'status','vencimento', 'visualizar', 'opcoes'];
 
 
   constructor(

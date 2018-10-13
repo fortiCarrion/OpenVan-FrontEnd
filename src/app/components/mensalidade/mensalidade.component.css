@@ -1,0 +1,36 @@
+
+  /* Structure */
+  table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .status-pagamento-pago {
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+    font-size: 0.852em; 
+    color: white;
+    background-color: green; 
+    border-radius: 8px
+  }
+
+  .status-pagamento-pendente {
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+    font-size: 0.852em; 
+    background-color: yellow; 
+    border-radius: 8px
+  }
+
+  .status-pagamento-atrasado {
+    margin-top: 5px; 
+    margin-bottom: 5px; 
+    font-size: 0.852em; 
+    color: white;
+    background-color: red; 
+    border-radius: 8px
+  }

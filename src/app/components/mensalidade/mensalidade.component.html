@@ -37,18 +37,66 @@
         <mat-cell *matCellDef="let mensalidade">
           <ul class="list-inline">
             <li class="list-inline-item">
-              <button type="button" class="btn btn-link">
+              <button type="button" class="btn btn-link" (click)="openModal(consultaMensalidade)">
                 <img src="svg/magnifying-glass.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Visualizar mensalidade {{mensalidade.aluno.nome}}">
               </button>
+
+              <!-- MODAL -->
+              <ng-template #consultaMensalidade>
+                <div class="modal-header">
+                  <h4 class="modal-title text-center">{{mensalidade.aluno.nome}}</h4>
+
+                  <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <div *ngIf='mensalidade.status == "QUITADO"; then statusPago else statusPendente'></div>
+                  <ng-template #statusPago>
+                    <span class="status-pagamento-pago">
+                      <strong>{{mensalidade.status}}</strong>
+                    </span>
+                  </ng-template>
+                  <ng-template #statusPendente>
+                    <span class="status-pagamento-pendente">
+                      <strong>{{mensalidade.status}}</strong>
+                    </span>
+                  </ng-template>
+
+                  <br>
+                  <strong>Referência</strong>
+                  <br> Pai: {{mensalidade.aluno.pai}}
+                  <br> Mãe: {{mensalidade.aluno.mae}}
+                  <br>
+                  <br>
+                  <strong>Data</strong>
+                  <br> Emissão: {{mensalidade.emissao}}
+                  <br> Vencimento: {{mensalidade.vencimento}}
+                  <br> Pagamento:
+                  <div *ngIf="mensalidade.pagamento; then pagamentoFalse else pagamentoTrue"></div>
+                  <ng-template #pagamentoFalse>{{mensalidade.pagamento}}</ng-template>
+                  <ng-template #pagamentoTrue>{{aguardandoPagamento}}</ng-template>
+                  <br>
+                  <br>
+                  <strong>Valor</strong>
+                  <br> R$: {{mensalidade.valor}}
+                </div>
+              </ng-template>
+              <!-- FIM MODAL -->
+
             </li>
           </ul>
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="confirmar_pagamento">
-        <mat-header-cell *matHeaderCellDef>Confirmar Pagamento</mat-header-cell>
+      <ng-container matColumnDef="opcoes">
+        <mat-header-cell *matHeaderCellDef>Opcões</mat-header-cell>
         <mat-cell *matCellDef="let mensalidade">
-          <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="openModal(cancelarPagamento)">Cancelar</button>
+          </div>
 
           <!-- MODAL -->
           <ng-template #confirmarPagamento>
@@ -61,21 +109,49 @@
             </div>
             <div class="modal-body">
               <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
-                <strong>{{mensalidade.aluno.nome}}</strong>
+                <strong>Aluno: {{mensalidade.aluno.nome}}</strong>
               </span>
               <br>
               <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
-                  <strong>{{mensalidade.emissao}}</strong>
-                </span>
+                <strong>Data emissão: {{mensalidade.emissao}}</strong>
+              </span>
               <br>
               <br>
-              <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Cancelar</button>
+              <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
 
               <button type="button" class="btn btn-success float-right">Confirmar</button>
             </div>
 
           </ng-template>
           <!-- FIM MODAL -->
+
+          <!-- MODAL -->
+          <ng-template #cancelarPagamento>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">CANCELAR PAGAMENTO ?</h4>
+
+              <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
+                <strong>Aluno: {{mensalidade.aluno.nome}}</strong>
+              </span>
+              <br>
+              <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
+                <strong>Data emissão: {{mensalidade.emissao}}</strong>
+              </span>
+              <br>
+              <br>
+              <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
+
+              <button type="button" class="btn btn-danger float-right">Confirmar</button>
+            </div>
+
+          </ng-template>
+          <!-- FIM MODAL -->
+
         </mat-cell>
       </ng-container>
 

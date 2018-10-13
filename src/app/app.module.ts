@@ -28,6 +28,7 @@ import { AlunoService } from './services/domain/aluno.service';
 import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.component';
 import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
 import { MensalidadeService } from './services/domain/mensalidade.service';
+import { RelatoriosComponent } from './components/relatorios/relatorios.component';
 
 
 
@@ -42,7 +43,8 @@ import { MensalidadeService } from './services/domain/mensalidade.service';
     FormVeiculosComponent,
     ListAlunosComponent,
     FormAlunoComponent,
-    MensalidadeComponent
+    MensalidadeComponent,
+    RelatoriosComponent
   ],
   imports: [
     BrowserModule,
