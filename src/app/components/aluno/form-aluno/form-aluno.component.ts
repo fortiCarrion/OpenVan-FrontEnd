@@ -41,6 +41,12 @@ export class FormAlunoComponent implements OnInit {
   formGroup: FormGroup;
   modalRef: BsModalRef;
 
+
+  modal_success: TemplateRef<any>;
+  modal_error: TemplateRef<any>;
+
+  error_message: string;
+
   title = 'Cadastrar Aluno';
   error = 'Não padronizado';
 
@@ -71,7 +77,7 @@ export class FormAlunoComponent implements OnInit {
       mae: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       periodo: ['', [Validators.required]],
       celular: ['', [Validators.minLength(8), Validators.maxLength(14)]],
-      status: new FormControl(1, Validators.required),
+      status: [0, [Validators.required]],
       recado: ['', [Validators.maxLength(150)]],
       valor: ['', [Validators.minLength(5)]],
       vencimentoMensalidade: ['', [Validators.required]],
@@ -151,11 +157,11 @@ export class FormAlunoComponent implements OnInit {
   toNumPeriodo(periodo: string) {
 
     if (periodo == "Matutino") {
-      this.formGroup.patchValue({ "periodo": 1 });
+      this.formGroup.patchValue({ "periodo": 0 });
     } else if (periodo == "Vespertino") {
-      this.formGroup.patchValue({ "periodo": 2 });
+      this.formGroup.patchValue({ "periodo": 1 });
     } else {
-      this.formGroup.patchValue({ "periodo": 3 });
+      this.formGroup.patchValue({ "periodo": 2 });
     }
   }
 
@@ -189,16 +195,19 @@ export class FormAlunoComponent implements OnInit {
     console.log(this.formGroup.value);
     this.alunoService.insert(this.formGroup.value)
       .subscribe(response => {
-        this.showInsertOk();
-        //this.openModal();
         this.goBack();
+        this.openModal(this.modal_success);
       },
 
-        error => { });
-  }
+        error => {
+          this.openModal(this.modal_error);
+          switch (error.status) {
 
-  showInsertOk() {
-    console.log("aluno cadastrado");
+            default:
+
+              this.error_message = error.message;
+          }
+        });
   }
 
   openModal(inserido: TemplateRef<any>) {

@@ -12,6 +12,11 @@ import { FormVeiculosComponent } from '../components/veiculo/form-veiculos/form-
 import { ListAlunosComponent } from '../components/aluno/list-alunos/list-alunos.component';
 import { FormAlunoComponent } from '../components/aluno/form-aluno/form-aluno.component';
 import { MensalidadeComponent } from '../components/mensalidade/mensalidade.component';
+import { RelatoriosComponent } from '../components/relatorios/relatorios.component';
+import { GeralComponent } from '../components/relatorios/geral/geral.component';
+import { RelatorioAlunosComponent } from '../components/relatorios/relatorio-alunos/relatorio-alunos.component';
+import { RelatorioVeiculosComponent } from '../components/relatorios/relatorio-veiculos/relatorio-veiculos.component';
+import { RelatorioColegiosComponent } from '../components/relatorios/relatorio-colegios/relatorio-colegios.component';
 
 
 const routes: Routes = [
@@ -31,7 +36,14 @@ const routes: Routes = [
     {path: 'cadastrar/aluno', component: FormAlunoComponent},
 
     // Mensalidade
-    {path: 'listagem/mensalidades', component: MensalidadeComponent}
+    {path: 'listagem/mensalidades', component: MensalidadeComponent},
+
+    // Relatorios
+    {path: 'geracao/relatorios', component: RelatoriosComponent},
+    {path: 'geracao/relatorios/geral', component: GeralComponent},
+    {path: 'geracao/relatorios/alunos', component: RelatorioAlunosComponent},
+    {path: 'geracao/relatorios/veiculos', component: RelatorioVeiculosComponent},
+    {path: 'geracao/relatorios/colegios', component: RelatorioColegiosComponent}
     
     
   ];

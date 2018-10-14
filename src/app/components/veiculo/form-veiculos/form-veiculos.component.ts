@@ -73,7 +73,7 @@ export class FormVeiculosComponent implements OnInit {
   insert() {
     this.veiculoService.insert(this.formGroup.value)
       .subscribe(response => {
-        this; this.goBack();
+        this.goBack();
         this.openModal(this.modal_success);
       },
         error => {

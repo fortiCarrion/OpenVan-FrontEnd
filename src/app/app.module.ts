@@ -29,6 +29,11 @@ import { FormAlunoComponent } from './components/aluno/form-aluno/form-aluno.com
 import { MensalidadeComponent } from './components/mensalidade/mensalidade.component';
 import { MensalidadeService } from './services/domain/mensalidade.service';
 import { RelatoriosComponent } from './components/relatorios/relatorios.component';
+import { GeralComponent } from './components/relatorios/geral/geral.component';
+import { RelatorioCabecalhoComponent } from './components/relatorios/relatorio-cabecalho/relatorio-cabecalho.component';
+import { RelatorioAlunosComponent } from './components/relatorios/relatorio-alunos/relatorio-alunos.component';
+import { RelatorioColegiosComponent } from './components/relatorios/relatorio-colegios/relatorio-colegios.component';
+import { RelatorioVeiculosComponent } from './components/relatorios/relatorio-veiculos/relatorio-veiculos.component';
 
 
 
@@ -44,7 +49,12 @@ import { RelatoriosComponent } from './components/relatorios/relatorios.componen
     ListAlunosComponent,
     FormAlunoComponent,
     MensalidadeComponent,
-    RelatoriosComponent
+    RelatoriosComponent,
+    GeralComponent,
+    RelatorioCabecalhoComponent,
+    RelatorioAlunosComponent,
+    RelatorioColegiosComponent,
+    RelatorioVeiculosComponent
   ],
   imports: [
     BrowserModule,

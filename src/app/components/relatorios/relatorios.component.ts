@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RelatoriosComponent implements OnInit {
 
+  title = "Emissão de Relatórios";
+
   constructor() { }
 
   ngOnInit() {

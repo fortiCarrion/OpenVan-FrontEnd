@@ -121,14 +121,14 @@
           </div>
 
           <div class="col-lg-2">
-            <button type="button" class="btn btn-danger" (click)="deleteEndereco(i)">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteEndereco(i)">
               <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
               Remover Endereço
             </button>
           </div>
         </div>
         <div>
-          <button type="button" class="btn btn-info" (click)="addNewEndereco()">Novo Endereço</button>
+          <button type="button" class="btn btn-info btn-block" (click)="addNewEndereco()">Novo Endereço</button>
         </div>
       </div>
 
@@ -150,7 +150,7 @@
           <div class="form-group col-lg-4">
             <div [formGroupName]="i" class="input-group-prepend">
               <label for="comercial" class="input-group-text">Comercial</label>
-              <input type="number" class="form-control" id="comercial" formControlName="comercial" placeholder="(00) 0000-0000">
+              <input type="text" class="form-control" id="comercial" formControlName="comercial" placeholder="(00) 0000-0000">
             </div>
           </div>
 
@@ -169,14 +169,14 @@
           </div>
 
           <div class="col-lg-2">
-            <button type="button" class="btn btn-danger" (click)="deleteContato(i)">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteContato(i)">
               <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
               Remover Contato
             </button>
           </div>
         </div>
         <div>
-          <button type="button" class="btn btn-info" (click)="addNewContato()">Novo Contato</button>
+          <button type="button" class="btn btn-info btn-block" (click)="addNewContato()">Novo Contato</button>
         </div>
       </div>
 

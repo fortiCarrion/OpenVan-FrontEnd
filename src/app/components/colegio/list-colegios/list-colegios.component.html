@@ -1,8 +1,11 @@
 <div class="container">
   <div class="col-lg-12">
-    <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
-      {{title}}
-    </h2>
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+      <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
+        {{title}}
+      </h2>
+    </div>
+
 
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
@@ -63,7 +66,7 @@
                 <br>
                 <strong>Telefone: </strong> {{colegio.telefone}}
                 <br>
-                <strong>Website: </strong> {{colegio.site}}
+                <strong>Website: </strong>{{colegio.website}}
               </div>
             </ng-template>
             <!-- FIM MODAL -->
@@ -82,7 +85,8 @@
             <!-- MODAL -->
             <ng-template #removercolegio>
               <div class="modal-header">
-                <h4 class="modal-title pull-left">Deseja remover o colégio: <br>{{colegio.nome}}</h4>
+                <h4 class="modal-title pull-left">Deseja remover o colégio:
+                  <br>{{colegio.nome}}</h4>
 
                 <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
                   <span aria-hidden="true">&times;</span>

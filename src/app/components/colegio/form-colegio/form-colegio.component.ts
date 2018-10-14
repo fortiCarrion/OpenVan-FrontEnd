@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ColegioService } from '../../../services/domain/colegio.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-form-colegio',
@@ -13,6 +14,12 @@ import { ColegioService } from '../../../services/domain/colegio.service';
 export class FormColegioComponent implements OnInit {
 
   formGroup: FormGroup;
+  modalRef: BsModalRef;
+
+  modal_success: TemplateRef<any>;
+  modal_error: TemplateRef<any>;
+
+  error_message: string;
 
   title = 'Cadastrar Colégio';
 
@@ -23,7 +30,8 @@ export class FormColegioComponent implements OnInit {
     private location: Location,
     private colegioService: ColegioService,
     private route: ActivatedRoute,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private modalService: BsModalService
   ) {
     this.formGroup = this.formBuilder.group({
       rede: ['', [Validators.required]],
@@ -40,23 +48,33 @@ export class FormColegioComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("onsubmit");
     this.toNumRede(this.formGroup.controls['rede'].value);
     this.insert();
   }
 
   insert() {
-    console.log(this.formGroup.value);
+    //console.log(this.formGroup.value);
     this.colegioService.insert(this.formGroup.value)
       .subscribe(response => {
-        this.showInsertOk();
+        this.goBack();
+        this.openModal(this.modal_success);
       },
 
-        error => { });
-  }
+        error => {
+          this.openModal(this.modal_error);
+          switch (error.status) {
 
-  showInsertOk() {
-    console.log("criado");
+            case 400:
+
+              this.error_message = "Nome do colégio já cadastrado, favor registrar outro nome."
+              break;
+
+            default:
+
+              this.error_message = error.message;
+          }
+
+         });
   }
 
   toNumRede(rede: string) {
@@ -66,11 +84,16 @@ export class FormColegioComponent implements OnInit {
     } else if (rede == "Municipal") {
       this.formGroup.patchValue({ "rede": "2" });
     } else {
-      this.formGroup.patchValue({ "rede": "3" });
+      this.formGroup.patchValue({ "rede": "0" });
     }
   }
   goBack(): void {
     this.location.back();
+  }
+
+  openModal(generico: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(generico);
+    setTimeout(this.modalRef.hide, 4000);
   }
 
 }

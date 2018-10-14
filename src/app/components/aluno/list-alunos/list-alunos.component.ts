@@ -30,7 +30,7 @@ export class ListAlunosComponent implements OnInit {
   selectedAluno: AlunoDTO;
   modalRef: BsModalRef;
 
-  displayedColumns: string[] = ['nome', 'valor', 'vencimento', 'status', 'outros'];
+  displayedColumns: string[] = ['nome', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
 
   constructor(
     public alunoService: AlunoService,

@@ -1,3 +1,93 @@
-<p>
-  relatorios works!
-</p>
+<div class="container">
+  <div class="pb-2 mt-4 mb-2 border-bottom">
+    <h2 class="text-center" style="margin-top: 5px; margin-bottom: 5px;">
+      {{title}}
+    </h2>
+  </div>
+  <div class="col-lg-12 jumbotron">
+
+    <h4 class="text-center">Cadastro</h4>
+    <div class="card-group">
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Alunos</div>
+        <div class="card-body">
+          <h5 class="card-title">Relatório de Alunos</h5>
+          <p class="card-text">Contém todos os alunos no sistema.</p>
+        </div>
+        <div class="card-footer bg-dark">
+          <button class="btn btn-primary btn-sn btn-block" routerLink="/geracao/relatorios/alunos">Emitir</button>
+        </div>
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Colégios</div>
+        <div class="card-body">
+          <h5 class="card-title">Relatório de Colégios</h5>
+          <p class="card-text">Contém todos os colégios no sistema.</p>
+        </div>
+        <div class="card-footer bg-dark">
+          <button class="btn btn-primary btn-sn btn-block" routerLink="/geracao/relatorios/colegios">Emitir</button>
+        </div>
+
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Veículos</div>
+        <div class="card-body">
+          <h5 class="card-title">Relatório de Veículos</h5>
+          <p class="card-text">Frota de veículos.</p>
+        </div>
+        <div class="card-footer bg-dark">
+          <button class="btn btn-primary btn-sn btn-block" routerLink="/geracao/relatorios/veiculos">Emitir</button>
+        </div>
+      </div>
+    </div>
+
+    <h4 class="text-center">Mensalidade</h4>
+    <div class="card-group">
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Geral</div>
+        <div class="card-body">
+          <h5 class="card-title">Relatório Geral</h5>
+          <p class="card-text">Contém todas as mensalidades presentes no sistema.</p>
+        </div>
+        <div class="card-footer bg-dark">
+          <button class="btn btn-primary btn-sn btn-block" routerLink="/geracao/relatorios/geral">Emitir</button>
+        </div>
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Pendente</div>
+        <div class="card-body">
+          <h5 class="card-title">Emissão de relatório de Alunos</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="card-footer bg-dark">Footer</div>
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Atrasado</div>
+        <div class="card-body">
+          <h5 class="card-title">Emissão de relatório de Alunos</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="card-footer bg-dark">Footer</div>
+      </div>
+
+      <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">Pago</div>
+        <div class="card-body">
+          <h5 class="card-title">Emissão de relatório de Alunos</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <div class="card-footer bg-dark">Footer</div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>

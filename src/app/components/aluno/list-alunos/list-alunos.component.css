@@ -8,3 +8,19 @@ table {
     width: 100%;
   }
   
+  mat-header-cell {
+    display:flex;
+    justify-content:center;
+   }
+
+   mat-cell {
+    display:flex;
+    justify-content:center;
+   }
+
+   .mat-cell-aluno {
+    display:flex;
+    justify-content:flex-start;
+   }
+
+   

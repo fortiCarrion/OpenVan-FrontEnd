@@ -19,14 +19,14 @@
 
       <div class="form-row mt-3">
 
-      <!-- INICIO ROW 1 -->
-      <div class="form-group col-lg-4 input-group">
+        <!-- INICIO ROW 1 -->
+        <div class="form-group col-lg-4 input-group">
           <div class="input-group-prepend">
             <label for="numero" class="input-group-text">Número</label>
           </div>
           <input required type="text" class="form-control" placeholder="Número" id="numero" formControlName="numero" pattern="[0-9]+">
         </div>
-        
+
         <div class="form-group col-lg-8 input-group">
           <div class="input-group-prepend">
             <label for="endereco" class="input-group-text">Endereço</label>
@@ -100,9 +100,27 @@
       </div>
 
       <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
-      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="goBack()">
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="modal_success = sucesso; modal_error = falha">
         Cadastrar</button>
     </form>
+
+    <!--  -->
+    <ng-template #sucesso>
+      <div class="alert alert-success" role="alert" style="margin: 0px 0px;">
+        <strong>Colégio Cadastrado ;)</strong>
+      </div>
+    </ng-template>
+
+    <!--  -->
+    <ng-template #falha>
+      <div class="alert alert-danger" role="alert" style="margin: 0px 0px;">
+        <strong>Falha ao cadastrar colégio :(</strong>
+        <hr>
+        <p>
+          {{error_message}}
+        </p>
+      </div>
+    </ng-template>
 
   </div>
 </div>
