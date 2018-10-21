@@ -5,6 +5,7 @@ import { ColegioDTO } from '../../../models/colegio.dto';
 import { DataSource } from '@angular/cdk/table';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { error } from 'util';
 
 @Component({
   selector: 'app-list-colegios',
@@ -56,8 +57,9 @@ export class ListColegiosComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
+    this.getColegios();
   }
-  
+
   private getArray() {
     this.colegioService.findAll()
       .subscribe((response) => {
@@ -72,15 +74,15 @@ export class ListColegiosComponent implements OnInit {
 
   getColegios(): void {
     this.colegioService.findAll()
-    .subscribe(response => {
-      this.colegios = response;
-      this.dataSource = new MatTableDataSource(response);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    },
-      error => {
-        console.log(error);
-      });
+      .subscribe(response => {
+        this.colegios = response;
+        this.dataSource = new MatTableDataSource(response);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+        error => {
+          console.log(error);
+        });
   }
 
   onSelect(colegio: ColegioDTO): void {
@@ -95,4 +97,13 @@ export class ListColegiosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  deleteColegio(id: string) {
+    this.colegioService.delete(id)
+    .subscribe(response =>{
+      this.getColegios();
+    }, error => {
+      console.log(error);
+    });
+    
+  }
 }

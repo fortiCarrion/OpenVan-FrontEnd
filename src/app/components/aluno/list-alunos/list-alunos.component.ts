@@ -55,6 +55,7 @@ export class ListAlunosComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
+    this.getalunos();
   }
   
   private getArray() {

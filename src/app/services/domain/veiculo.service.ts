@@ -26,4 +26,8 @@ export class VeiculoService {
             }
         );
     }
+
+    delete(id: any) {
+        return this.http.delete(`${API_CONFIG.baseUrl}/veiculos/${id}`);
+    }
 }

@@ -37,7 +37,7 @@ export class FormColegioComponent implements OnInit {
       rede: ['', [Validators.required]],
       nome: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       endereco: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
-      numero: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(5)]],
+      numero: ['', [Validators.required,Validators.min(1), Validators.max(9999)]],
       telefone: ['', [Validators.minLength(8), Validators.maxLength(14)]],
       website: ['', [Validators.minLength(10), Validators.maxLength(100)]]
     });

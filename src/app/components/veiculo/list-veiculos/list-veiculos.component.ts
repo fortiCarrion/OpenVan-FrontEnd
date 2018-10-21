@@ -51,6 +51,7 @@ export class ListVeiculosComponent implements OnInit {
     this.currentPage = e.pageIndex;
     this.pageSize = e.pageSize;
     this.iterator();
+    
   }
 
   private iterator() {
@@ -58,6 +59,7 @@ export class ListVeiculosComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
+    this.getVeiculos();
   }
 
   private getArray() {
@@ -94,6 +96,17 @@ export class ListVeiculosComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+  }
+
+  deleteVeiculo(id: string) {
+    this.veiculoService.delete(id)
+    .subscribe(response =>{
+      this.getVeiculos();
+    }, error => {
+      console.log(error);
+    });
+    
   }
 
 }

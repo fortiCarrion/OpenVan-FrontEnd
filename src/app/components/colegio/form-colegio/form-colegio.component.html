@@ -24,7 +24,7 @@
           <div class="input-group-prepend">
             <label for="numero" class="input-group-text">Número</label>
           </div>
-          <input required type="text" class="form-control" placeholder="Número" id="numero" formControlName="numero" pattern="[0-9]+">
+          <input required type="number" class="form-control" placeholder="Número" id="numero" formControlName="numero" pattern="[0-9]+" min="1" max="9999">
         </div>
 
         <div class="form-group col-lg-8 input-group">
@@ -74,17 +74,17 @@
 
       <!-- TRATAMENTO DE ERROS DA ROW 2 -->
       <div class="row">
-        <div class="col-7">
+        <div class="col-lg-7">
           <div *ngIf="formGroup.controls['telefone'].errors && (formGroup.controls['telefone'].dirty || formGroup.controls['telefone'].touched)"
             class="alert alert-danger">
             Telefone do colegio invalído
           </div>
         </div>
-        <div class="col-5">
+        <div class="col-lg-5">
 
           <div *ngIf="formGroup.controls['rede'].errors && (formGroup.controls['rede'].dirty || formGroup.controls['rede'].touched)"
             class="alert alert-danger">
-            Endereço do colegio é obrigatório
+            Rede do colegio é obrigatório
           </div>
         </div>
       </div>

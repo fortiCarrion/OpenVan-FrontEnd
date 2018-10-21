@@ -26,4 +26,8 @@ export class ColegioService {
             }
         );
     }
+
+    delete(id: any) {
+        return this.http.delete(`${API_CONFIG.baseUrl}/colegios/${id}`);
+    }
 }

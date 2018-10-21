@@ -35,7 +35,7 @@ export class FormVeiculosComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       status: [this.status[0], [Validators.required]],
       condutor: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      numero: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(4)]],
+      numero: ['', [Validators.required, Validators.min(1), Validators.max(9999)]],
       modelo: ['', [Validators.maxLength(50)]],
       ano: ['', [Validators.minLength(4), Validators.maxLength(4)]],
       recado: [null, [Validators.maxLength(150)]]

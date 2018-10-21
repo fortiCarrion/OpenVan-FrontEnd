@@ -15,7 +15,10 @@
   <div class="col-md-12" style="margin-bottom: 10px">
 
     <table mat-table class="table" [dataSource]="dataSource" matSort matSortActive="aluno" matSortDirection="asc">
-
+      <ng-container matColumnDef="veiculo" class="md-2">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Veículo</mat-header-cell>
+        <mat-cell *matCellDef="let mensalidade">{{mensalidade.aluno.veiculo.numero}}</mat-cell>
+      </ng-container>
       <ng-container matColumnDef="aluno" class="md-2">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Aluno</mat-header-cell>
         <mat-cell *matCellDef="let mensalidade">{{mensalidade.aluno.nome}}</mat-cell>
@@ -49,9 +52,11 @@
                   <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                     <span aria-hidden="true">&times;</span>
                   </button>
+
                 </div>
 
                 <div class="modal-body">
+                  STATUS PAGAMENTO: 
                   <div *ngIf='mensalidade.status == "QUITADO"; then statusPago else statusPendente'></div>
                   <ng-template #statusPago>
                     <span class="status-pagamento-pago">
@@ -64,7 +69,12 @@
                     </span>
                   </ng-template>
 
+                  <hr>
+                  <strong>Colégio: {{mensalidade.aluno.colegio.nome}}</strong>
                   <br>
+                  <strong>Veículo: {{mensalidade.aluno.veiculo.numero}}</strong>
+                  <br> 
+                  <hr>
                   <strong>Referência</strong>
                   <br> Pai: {{mensalidade.aluno.pai}}
                   <br> Mãe: {{mensalidade.aluno.mae}}
@@ -77,6 +87,10 @@
                   <div *ngIf="mensalidade.pagamento; then pagamentoFalse else pagamentoTrue"></div>
                   <ng-template #pagamentoFalse>{{mensalidade.pagamento}}</ng-template>
                   <ng-template #pagamentoTrue>{{aguardandoPagamento}}</ng-template>
+                  <br>
+                  <br>
+                  <strong>Cancelamento</strong>
+                  <br> Data: {{mensalidade.cancelamento}}
                   <br>
                   <br>
                   <strong>Valor</strong>
@@ -94,7 +108,18 @@
         <mat-header-cell *matHeaderCellDef>Opcões</mat-header-cell>
         <mat-cell *matCellDef="let mensalidade">
           <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+
+            <div *ngIf="mensalidade.pagamento; then mensalidadeQuitada else mensalidadePendente"></div>
+
+            <ng-template #mensalidadeQuitada>
+
+              <button type="button" class="btn btn-success btn-sm" disabled (click)="openModal(confirmarPagamento)">Confirmar</button>
+            </ng-template>
+            <ng-template #mensalidadePendente>
+
+              <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+            </ng-template>
+
             <button type="button" class="btn btn-danger btn-sm" (click)="openModal(cancelarPagamento)">Cancelar</button>
           </div>
 
@@ -113,13 +138,13 @@
               </span>
               <br>
               <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
-                <strong>Data emissão: {{mensalidade.emissao}}</strong>
+                <strong>Data Emissão Mensalidade: <br> {{mensalidade.emissao}}</strong>
               </span>
               <br>
               <br>
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
 
-              <button type="button" class="btn btn-success float-right">Confirmar</button>
+              <button type="button" class="btn btn-success float-right" (click)="updateMensalidadePaga(mensalidade.id); modalRef.hide()">Confirmar</button>
             </div>
 
           </ng-template>

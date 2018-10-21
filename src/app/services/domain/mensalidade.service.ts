@@ -26,4 +26,16 @@ export class MensalidadeService {
             }
         );
     }
+
+    updateMensadalidadePaga(obj: any ,id: any){
+
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/mensalidades/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
 }

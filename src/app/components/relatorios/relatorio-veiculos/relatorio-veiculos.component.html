@@ -1,3 +1,61 @@
-<p>
-  relatorio-veiculos works!
-</p>
+<div class="container">
+
+    <div class="col-lg-12" style="margin-top: 15px; margin-bottom: 15px">
+  
+      <button class="btn btn-primary btn-md btn-block" (click)="captureScreen()">EXPORTAR PARA PDF</button>
+    </div>
+  
+    <div id="content" #content>
+  
+      <div id="contentToConvert" class="invoice-box table-responsive col-md-12" style="margin-top: 20px;" style="background-color: white;">
+  
+        <!-- CABEÇALHO RELATÓRIO-->
+        <table>
+          <tr>
+            <td class="title">
+              <img src="svg/logo.png" class="img-fluid mx-auto d-block" alt="Responsive image" style="border: 2px solid gray; float: left;">
+            </td>
+            <td>
+              <h5>
+                <strong>{{cabecalho}}</strong>
+              </h5>
+              <br>
+              <strong>{{nome_fantasia}}</strong>
+              <br>
+              <strong>{{today}}</strong>
+  
+            </td>
+          </tr>
+        </table>
+        <hr>
+        <!-- FIM CABEÇALHO RELATÓRIO-->
+  
+        <!-- CONTEUDO -->
+        <table class="table table-sm table-striped">
+          <thead>
+            <tr>
+
+              <th class="text-left" >Número</th>
+              <th class="text-center" >Status</th>
+              <th class="text-center" >Condutor</th>
+              <th class="text-center" >Modelo</th>
+              <th class="text-center">Ano</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+  
+          <tr *ngFor="let vel of veiculos;">
+            <td align="left">{{vel.numero}}</td>
+            <td align="center">{{vel.status}}</td>
+            <td align="center">{{vel.condutor}}</td>
+            <td align="center">{{vel.modelo}}</td>
+            <td align="center">{{vel.ano}}</td>
+          </tr>
+        </table>
+        <!-- FIM CONTEUDO -->
+  
+      </div>
+    </div>
+  
+  </div>

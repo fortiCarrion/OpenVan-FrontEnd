@@ -5,6 +5,8 @@ import { MensalidadeService } from '../../services/domain/mensalidade.service';
 import { MatSort, MatSortable, MatTableDataSource, PageEvent, MatPaginator } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import {DateFormatPipe} from '../../date-format/date-format';
+import { error } from 'util';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-mensalidade',
@@ -26,20 +28,25 @@ export class MensalidadeComponent implements OnInit {
 
   title = 'Mensalidades';
   aguardandoPagamento = 'AGUARDANDO PAGAMENTO';
-  
+  formGroup: FormGroup;
   selectedMensalidade: MensalidadeDTO;
   modalRef: BsModalRef;
 
   mensalidades: MensalidadeDTO[];
 
   //displayedColumns: string[] = ['aluno', 'emissao', 'status','vencimento', 'visualizar', 'confirmar pagamento'];
-  displayedColumns: string[] = ['aluno', 'emissao', 'status','vencimento', 'visualizar', 'opcoes'];
+  displayedColumns: string[] = ['veiculo', 'aluno', 'emissao', 'status','vencimento', 'visualizar', 'opcoes'];
 
 
   constructor(
     public mensalidadeService: MensalidadeService,
-    private modalService: BsModalService
-  ) { }
+    private modalService: BsModalService,
+    public formBuilder: FormBuilder
+  ) { 
+    this.formGroup = this.formBuilder.group({
+      status: [1]
+    })
+  }
 
   ngOnInit() {
     this.getArray();
@@ -57,8 +64,10 @@ export class MensalidadeComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = part;
+    this.getMensalidades();
   }
   
+  // Tratamento para uso da tabela com filtros
   private getArray() {
     this.mensalidadeService.findAll()
       .subscribe((response) => {
@@ -81,6 +90,18 @@ export class MensalidadeComponent implements OnInit {
           console.log(error);
         });
   }
+
+  updateMensalidadePaga(id){
+    console.log(this.formGroup.value);
+    this.mensalidadeService.updateMensadalidadePaga(this.formGroup.value, id)
+    .subscribe(response => {
+      console.log('S');
+      this.getMensalidades();;
+    }, error => {
+      console.log('N');
+    });
+    //console.log(this.mensalidadeService.updateMensadalidadePaga(id)); 
+   }
 
   onSelect(mensalidade: MensalidadeDTO): void {
     this.selectedMensalidade = mensalidade;
