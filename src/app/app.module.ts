@@ -34,6 +34,9 @@ import { RelatorioCabecalhoComponent } from './components/relatorios/relatorio-c
 import { RelatorioAlunosComponent } from './components/relatorios/relatorio-alunos/relatorio-alunos.component';
 import { RelatorioColegiosComponent } from './components/relatorios/relatorio-colegios/relatorio-colegios.component';
 import { RelatorioVeiculosComponent } from './components/relatorios/relatorio-veiculos/relatorio-veiculos.component';
+import { PendenteComponent } from './components/relatorios/pendente/pendente.component';
+import { AtrasadoComponent } from './components/relatorios/atrasado/atrasado.component';
+import { QuitadoComponent } from './components/relatorios/quitado/quitado.component';
 
 
 
@@ -54,7 +57,10 @@ import { RelatorioVeiculosComponent } from './components/relatorios/relatorio-ve
     RelatorioCabecalhoComponent,
     RelatorioAlunosComponent,
     RelatorioColegiosComponent,
-    RelatorioVeiculosComponent
+    RelatorioVeiculosComponent,
+    PendenteComponent,
+    AtrasadoComponent,
+    QuitadoComponent
   ],
   imports: [
     BrowserModule,

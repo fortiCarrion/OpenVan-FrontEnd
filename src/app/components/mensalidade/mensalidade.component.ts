@@ -29,6 +29,8 @@ export class MensalidadeComponent implements OnInit {
   title = 'Mensalidades';
   aguardandoPagamento = 'AGUARDANDO PAGAMENTO';
   formGroup: FormGroup;
+  formGroupCancelado: FormGroup;
+
   selectedMensalidade: MensalidadeDTO;
   modalRef: BsModalRef;
 
@@ -45,7 +47,10 @@ export class MensalidadeComponent implements OnInit {
   ) { 
     this.formGroup = this.formBuilder.group({
       status: [1]
-    })
+    });
+    this.formGroupCancelado = this.formBuilder.group({
+      status:[3]
+    });
   }
 
   ngOnInit() {
@@ -93,7 +98,19 @@ export class MensalidadeComponent implements OnInit {
 
   updateMensalidadePaga(id){
     console.log(this.formGroup.value);
-    this.mensalidadeService.updateMensadalidadePaga(this.formGroup.value, id)
+    this.mensalidadeService.update(this.formGroup.value, id)
+    .subscribe(response => {
+      console.log('S');
+      this.getMensalidades();;
+    }, error => {
+      console.log('N');
+    });
+    //console.log(this.mensalidadeService.updateMensadalidadePaga(id)); 
+   }
+   
+   updateMensalidadeCancelada(id){
+    console.log(this.formGroupCancelado.value);
+    this.mensalidadeService.update(this.formGroupCancelado.value, id)
     .subscribe(response => {
       console.log('S');
       this.getMensalidades();;

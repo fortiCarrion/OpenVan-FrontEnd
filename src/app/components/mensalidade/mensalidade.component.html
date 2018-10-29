@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="modal-body">
-                  STATUS PAGAMENTO: 
+                  STATUS PAGAMENTO:
                   <div *ngIf='mensalidade.status == "QUITADO"; then statusPago else statusPendente'></div>
                   <ng-template #statusPago>
                     <span class="status-pagamento-pago">
@@ -73,7 +73,7 @@
                   <strong>Colégio: {{mensalidade.aluno.colegio.nome}}</strong>
                   <br>
                   <strong>Veículo: {{mensalidade.aluno.veiculo.numero}}</strong>
-                  <br> 
+                  <br>
                   <hr>
                   <strong>Referência</strong>
                   <br> Pai: {{mensalidade.aluno.pai}}
@@ -84,9 +84,12 @@
                   <br> Emissão: {{mensalidade.emissao}}
                   <br> Vencimento: {{mensalidade.vencimento}}
                   <br> Pagamento:
-                  <div *ngIf="mensalidade.pagamento; then pagamentoFalse else pagamentoTrue"></div>
-                  <ng-template #pagamentoFalse>{{mensalidade.pagamento}}</ng-template>
-                  <ng-template #pagamentoTrue>{{aguardandoPagamento}}</ng-template>
+                  <div *ngIf='mensalidade.status == "PENDENTE"; then pagamentoPendente'></div>
+                  <div *ngIf='mensalidade.status == "CANCELADO"; then pagamentoCancelado'></div>
+                  <div *ngIf='mensalidade.status == "QUITADO"; then pagamentoQuitado'></div>
+                  <ng-template #pagamentoQuitado>{{mensalidade.pagamento}}</ng-template>
+                  <ng-template #pagamentoPendente>{{aguardandoPagamento}}</ng-template>
+                  <ng-template #pagamentoCancelado>CANCELADO</ng-template>
                   <br>
                   <br>
                   <strong>Cancelamento</strong>
@@ -109,18 +112,18 @@
         <mat-cell *matCellDef="let mensalidade">
           <div class="btn-group" role="group" aria-label="Basic example">
 
-            <div *ngIf="mensalidade.pagamento; then mensalidadeQuitada else mensalidadePendente"></div>
-
+            <div *ngIf="mensalidade.pagamento || mensalidade.cancelamento; then mensalidadeQuitada  else mensalidadePendente"></div>
+            
             <ng-template #mensalidadeQuitada>
-
               <button type="button" class="btn btn-success btn-sm" disabled (click)="openModal(confirmarPagamento)">Confirmar</button>
+              <button type="button" class="btn btn-danger btn-sm" disabled (click)="openModal(cancelarPagamento)">Cancelar</button>
             </ng-template>
+
             <ng-template #mensalidadePendente>
-
               <button type="button" class="btn btn-success btn-sm" (click)="openModal(confirmarPagamento)">Confirmar</button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="openModal(cancelarPagamento)">Cancelar</button>
             </ng-template>
 
-            <button type="button" class="btn btn-danger btn-sm" (click)="openModal(cancelarPagamento)">Cancelar</button>
           </div>
 
           <!-- MODAL -->
@@ -138,7 +141,8 @@
               </span>
               <br>
               <span style="margin-top: 5px; margin-bottom: 5px; font-size: 1.000em;">
-                <strong>Data Emissão Mensalidade: <br> {{mensalidade.emissao}}</strong>
+                <strong>Data Emissão Mensalidade:
+                  <br> {{mensalidade.emissao}}</strong>
               </span>
               <br>
               <br>
@@ -171,7 +175,7 @@
               <br>
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
 
-              <button type="button" class="btn btn-danger float-right">Confirmar</button>
+              <button type="button" class="btn btn-danger float-right" (click)="updateMensalidadeCancelada(mensalidade.id); modalRef.hide()">Confirmar</button>
             </div>
 
           </ng-template>

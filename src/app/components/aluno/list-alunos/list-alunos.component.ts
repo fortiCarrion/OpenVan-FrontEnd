@@ -3,6 +3,7 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { AlunoDTO } from '../../../models/aluno.dto';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AlunoService } from '../../../services/domain/aluno.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-list-alunos',
@@ -24,17 +25,22 @@ export class ListAlunosComponent implements OnInit {
   dataSource: any;
 
   title: String = 'Alunos';
-
+  formGroup: FormGroup;
+  alunoRematricula: FormGroup;
 
   alunos: AlunoDTO[];
   selectedAluno: AlunoDTO;
   modalRef: BsModalRef;
 
-  displayedColumns: string[] = ['nome', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
+  displayedColumns: string[] = ['nome', 'veiculo', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
 
   constructor(
     public alunoService: AlunoService,
-    private modalService: BsModalService) {
+    private modalService: BsModalService,
+    public formBuilder: FormBuilder) {
+    this.formGroup = this.formBuilder.group({
+      status: [1]
+    });
 
   }
 
@@ -57,7 +63,7 @@ export class ListAlunosComponent implements OnInit {
     this.dataSource = part;
     this.getalunos();
   }
-  
+
   private getArray() {
     this.alunoService.findAll()
       .subscribe((response) => {
@@ -82,6 +88,37 @@ export class ListAlunosComponent implements OnInit {
         });
   }
 
+  test(a: AlunoDTO) {
+    console.log(a.colegio.id);
+  }
+  getAlunoRematricula(aluno: AlunoDTO, dia_vencimetno: number) {
+    this.alunoRematricula = this.formBuilder.group({
+      nome: [aluno.nome],
+      pai: [aluno.pai],
+      mae: [aluno.mae],
+      periodo: [aluno.periodo],
+      status: ['ATIVO'],
+      valor: [aluno.valor],
+      vencimentoMensalidade: [dia_vencimetno],
+      colegio: this.formBuilder.group({
+        id: [aluno.colegio.id],
+      }),
+      veiculo: this.formBuilder.group({
+        id: [aluno.veiculo.id],
+      })
+    });
+
+    console.log(this.alunoRematricula.value);
+
+    this.alunoService.update(this.alunoRematricula.value, aluno.id)
+      .subscribe(response => {
+        console.log('S');
+        this.getalunos();
+      }, error => {
+        console.log('N');
+      });
+  }
+
   onSelect(aluno: AlunoDTO): void {
     this.selectedAluno = aluno;
   }
@@ -94,5 +131,15 @@ export class ListAlunosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
+  rematricular(id) {
+    console.log(this.formGroup.value);
+    this.alunoService.update(this.formGroup.value, id)
+      .subscribe(response => {
+        console.log('S');
+        this.getalunos();
+      }, error => {
+        console.log('N');
+      });
+    //console.log(this.mensalidadeService.updateMensadalidadePaga(id)); 
+  }
 }

@@ -53,7 +53,7 @@
       <div class="form-row">
         <div class="form-group input-group mb-3 col-lg-6" formGroupName="veiculo">
           <div class="input-group-prepend">
-            <label for="veiculo" class="input-group-text">Numero do veiculo</label>
+            <label required for="veiculo" class="input-group-text">Numero do veiculo</label>
           </div>
           <select required class="form-control" id="veiculo" formControlName="id" name="veiculo">
             <option *ngFor="let v of veiculos" [value]="v.id">{{v.numero}}</option>

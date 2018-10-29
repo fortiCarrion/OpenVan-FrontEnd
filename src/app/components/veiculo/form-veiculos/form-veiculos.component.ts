@@ -20,6 +20,8 @@ export class FormVeiculosComponent implements OnInit {
 
   error_message: string;
 
+  year = new Date().getFullYear();
+
   title = 'Cadastrar Veículo';
 
   status = ['Ativo', 'Inativo', 'Manutenção'];
@@ -37,7 +39,7 @@ export class FormVeiculosComponent implements OnInit {
       condutor: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       numero: ['', [Validators.required, Validators.min(1), Validators.max(9999)]],
       modelo: ['', [Validators.maxLength(50)]],
-      ano: ['', [Validators.minLength(4), Validators.maxLength(4)]],
+      ano: ['', [Validators.min(1997), Validators.max(this.year)]],
       recado: [null, [Validators.maxLength(150)]]
     });
   }

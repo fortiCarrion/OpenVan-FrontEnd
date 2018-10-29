@@ -82,13 +82,13 @@ export class FormAlunoComponent implements OnInit {
       valor: ['', [Validators.minLength(5)]],
       vencimentoMensalidade: ['', [Validators.required]],
       colegio: this.formBuilder.group({
-        id: [null, Validators.required],
+        id: [null, [Validators.required]],
       }),
       veiculo: this.formBuilder.group({
         id: [null, [Validators.required]]
       }),
       enderecos: this.formBuilder.array([
-
+    
       ]),
       contatos: this.formBuilder.array([
 
@@ -101,8 +101,8 @@ export class FormAlunoComponent implements OnInit {
     this.getVeiculos();
     this.getColegios();
 
-    this.setEnderecos();
-    this.setContatos();
+    //this.setEnderecos();
+    //this.setContatos();
   }
 
   onSubmit() {

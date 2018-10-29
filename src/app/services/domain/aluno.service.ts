@@ -31,4 +31,17 @@ export class AlunoService {
     delete(id: any) {
         return this.http.delete(`${API_CONFIG.baseUrl}/alunos/${id}`);
     }
+
+    
+    update(obj: any ,id: any){
+
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/alunos/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
 }

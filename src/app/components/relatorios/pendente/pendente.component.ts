@@ -1,17 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { Component, OnInit } from '@angular/core';
 import { MensalidadeDTO } from '../../../models/mensalidade.dto';
 import { MensalidadeService } from '../../../services/domain/mensalidade.service';
 
-@Component({
-  selector: 'app-geral',
-  templateUrl: './geral.component.html',
-  styleUrls: ['./geral.component.css']
-})
-export class GeralComponent implements OnInit {
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
-  tipo_relatorio: String = 'Geral';
+@Component({
+  selector: 'app-pendente',
+  templateUrl: './pendente.component.html',
+  styleUrls: ['./pendente.component.css']
+})
+export class PendenteComponent implements OnInit {
+
+  
+  tipo_relatorio: String = 'Pendente';
   cabecalho: String = 'Relatório Analítico de Mensalidades ' + this.tipo_relatorio;
   nome_fantasia: String = 'Doroso e Oliveira Transportes';
 
@@ -50,9 +52,10 @@ export class GeralComponent implements OnInit {
 
   ngOnInit() {
     this.today = this.formatDate(new Date);
-    this.getMensalidades();
+    this.getMensalidadesByStatus(1);
   }
 
+  
   public captureScreen() {
     var data = document.getElementById('contentToConvert');
     html2canvas(data).then(canvas => {
@@ -66,13 +69,13 @@ export class GeralComponent implements OnInit {
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('mensalidadesGeral.pdf'); // Generated PDF   
+      pdf.save('mensalidadesPendente.pdf'); // Generated PDF   
     });
   }
 
 
-  getMensalidades(): void {
-    this.mensalidadeService.findAll()
+  getMensalidadesByStatus(status: number): void {
+    this.mensalidadeService.findAllByStatus(status)
       .subscribe(response => {
         this.mensalidades = response;
       },

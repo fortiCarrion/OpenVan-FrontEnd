@@ -21,6 +21,12 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
         <mat-cell class="mat-cell-aluno" *matCellDef="let aluno">{{aluno.nome}}</mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="veiculo" class="md-2">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Veículo</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.veiculo.numero}}</mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="valor">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Valor</mat-header-cell>
         <mat-cell *matCellDef="let aluno">R$: {{aluno.valor}}</mat-cell>
@@ -64,6 +70,12 @@
                   {{aluno.periodo}}
                 </span>
                 <br>
+                <hr>
+                <strong>Colégio: {{aluno.colegio.nome}}</strong>
+                <br>
+                <strong>Veículo: {{aluno.veiculo.numero}}</strong>
+                <br>
+                <hr>
                 <strong>Celular Aluno: </strong> {{aluno.celular}}
                 <br>
                 <strong>Nome pai: </strong> {{aluno.pai}}
@@ -93,7 +105,8 @@
             <!-- MODAL -->
             <ng-template #deletaraluno>
               <div class="modal-header">
-                <h4 class="modal-title pull-left">Deseja deletar o Aluno: <br> {{aluno.nome}}</h4>
+                <h4 class="modal-title pull-left">Deseja deletar o Aluno:
+                  <br> {{aluno.nome}}</h4>
 
                 <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
                   <span aria-hidden="true">&times;</span>
@@ -124,10 +137,36 @@
         <mat-header-cell *matHeaderCellDef>Rematricula</mat-header-cell>
         <mat-cell *matCellDef="let aluno">
 
-          <button type="button" *ngIf="aluno.status == 'INATIVO'" class="btn" data-toggle="modal" data-target="#rematriculaAluno">
+          <button type="button" *ngIf="aluno.status == 'INATIVO'" class="btn" data-toggle="modal" data-target="#rematricularAluno"
+            (click)="openModal(rematricularAluno)">
             <img src="svg/ticket.svg" width="20" height="20" alt="">
           </button>
 
+          <!-- MODAL -->
+          <ng-template #rematricularAluno>
+            <div class="modal-header">
+              <h4 class="modal-title pull-left">Deseja rematricular o Aluno:
+                <br> {{aluno.nome}}</h4>
+
+              <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                <strong>Data registro: {{aluno.registro}}</strong>
+              </span>
+              <br>
+              <br>
+              <br>
+              <br>
+              <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
+
+              <button type="button" class="btn btn-success float-right" (click)="getAlunoRematricula(aluno, aluno.vencimentoMensalidade); modalRef.hide()">Confirmar</button>
+            </div>
+
+          </ng-template>
+          <!-- FIM MODAL -->
         </mat-cell>
       </ng-container>
 
