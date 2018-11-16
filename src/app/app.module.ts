@@ -37,6 +37,7 @@ import { RelatorioVeiculosComponent } from './components/relatorios/relatorio-ve
 import { PendenteComponent } from './components/relatorios/pendente/pendente.component';
 import { AtrasadoComponent } from './components/relatorios/atrasado/atrasado.component';
 import { QuitadoComponent } from './components/relatorios/quitado/quitado.component';
+import { ManualMensalidadeComponent } from './components/relatorios/manual-mensalidade/manual-mensalidade.component';
 
 
 
@@ -60,7 +61,8 @@ import { QuitadoComponent } from './components/relatorios/quitado/quitado.compon
     RelatorioVeiculosComponent,
     PendenteComponent,
     AtrasadoComponent,
-    QuitadoComponent
+    QuitadoComponent,
+    ManualMensalidadeComponent
   ],
   imports: [
     BrowserModule,

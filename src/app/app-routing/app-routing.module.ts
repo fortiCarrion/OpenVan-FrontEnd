@@ -20,6 +20,7 @@ import { RelatorioColegiosComponent } from '../components/relatorios/relatorio-c
 import { PendenteComponent } from '../components/relatorios/pendente/pendente.component';
 import { AtrasadoComponent } from '../components/relatorios/atrasado/atrasado.component';
 import { QuitadoComponent } from '../components/relatorios/quitado/quitado.component';
+import { ManualMensalidadeComponent } from '../components/relatorios/manual-mensalidade/manual-mensalidade.component';
 
 
 const routes: Routes = [
@@ -49,9 +50,9 @@ const routes: Routes = [
     {path: 'geracao/relatorios/quitado', component: QuitadoComponent},
     {path: 'geracao/relatorios/alunos', component: RelatorioAlunosComponent},
     {path: 'geracao/relatorios/veiculos', component: RelatorioVeiculosComponent},
-    {path: 'geracao/relatorios/colegios', component: RelatorioColegiosComponent}
-    
-    
+    {path: 'geracao/relatorios/colegios', component: RelatorioColegiosComponent},
+    {path: 'geracao/relatorios/manualMensalidade', component: ManualMensalidadeComponent}
+
   ];
   
   
