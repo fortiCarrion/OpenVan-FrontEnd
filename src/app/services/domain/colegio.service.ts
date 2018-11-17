@@ -30,4 +30,18 @@ export class ColegioService {
     delete(id: any) {
         return this.http.delete(`${API_CONFIG.baseUrl}/colegios/${id}`);
     }
+
+    findOne(id: any): Observable<ColegioDTO> {
+        return this.http.get<ColegioDTO>(`${API_CONFIG.baseUrl}/colegios/${id}`);
+    }
+
+    update(obj: ColegioDTO, id: any){
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/colegios/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
 }

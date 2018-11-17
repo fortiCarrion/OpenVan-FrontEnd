@@ -1,0 +1,126 @@
+<div class="container background">
+  <h2 class="text-center" style="margin-top: 10px;">{{title}}</h2>
+  <hr>
+
+  <div [hidden]="submitted" class="col-md-12" style="margin-bottom: 20px;">
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="form-group input-group espacamento">
+        <div class="input-group-prepend">
+          <label for="nome" class="input-group-text" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Nome</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome do colegio" id="nome" formControlName="nome">
+      </div>
+      <div *ngIf="formGroup.controls['nome'].errors && (formGroup.controls['nome'].dirty || formGroup.controls['nome'].touched)"
+        class="alert alert-danger">
+        Nome do colegio é obrigatório
+      </div>
+
+
+      <div class="form-row mt-3">
+
+        <!-- INICIO ROW 1 -->
+        <div class="form-group col-lg-4 input-group">
+          <div class="input-group-prepend">
+            <label for="numero" class="input-group-text">Número</label>
+          </div>
+          <input required type="number" class="form-control" placeholder="Número" id="numero" formControlName="numero" pattern="[0-9]+" min="1" max="9999">
+        </div>
+
+        <div class="form-group col-lg-8 input-group">
+          <div class="input-group-prepend">
+            <label for="endereco" class="input-group-text">Endereço</label>
+          </div>
+          <input required type="text" class="form-control" placeholder="Endereço" id="endereco" formControlName="endereco">
+        </div>
+      </div>
+
+      <!-- TRATAMENTO DE ERROS DA ROW 1 -->
+      <div class="row">
+        <div class="col-lg-4">
+          <div *ngIf="formGroup.controls['numero'].errors && (formGroup.controls['numero'].dirty || formGroup.controls['numero'].touched)"
+            class="alert alert-danger">
+            Número do colegio é obrigatório
+          </div>
+        </div>
+        <div class="col-lg-8">
+
+          <div *ngIf="formGroup.controls['endereco'].errors && (formGroup.controls['endereco'].dirty || formGroup.controls['endereco'].touched)"
+            class="alert alert-danger">
+            Endereço do colegio é obrigatório
+          </div>
+        </div>
+      </div>
+      <!-- FIM ROW 1 -->
+
+      <div class="form-row mt-3">
+        <!-- INICIO ROW 2 -->
+        <div class="form-group col-lg-7 input-group">
+          <div class="input-group-prepend">
+            <label for="telefone" class="input-group-text">Telefone</label>
+          </div>
+          <input type="text" class="form-control" placeholder="(00) 0000-0000" id="telefone" formControlName="telefone">
+        </div>
+
+        <div class="form-group col-lg-5 input-group">
+          <div class="input-group-prepend">
+            <label for="rede" class="input-group-text">Rede</label>
+          </div>
+          <select required class="form-control" id="rede" formControlName="rede">
+            <option *ngFor="let r of redes; first as f" [value]="r" [selected]="f">{{r}}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- TRATAMENTO DE ERROS DA ROW 2 -->
+      <div class="row">
+        <div class="col-lg-7">
+          <div *ngIf="formGroup.controls['telefone'].errors && (formGroup.controls['telefone'].dirty || formGroup.controls['telefone'].touched)"
+            class="alert alert-danger">
+            Telefone do colegio invalído
+          </div>
+        </div>
+        <div class="col-lg-5">
+
+          <div *ngIf="formGroup.controls['rede'].errors && (formGroup.controls['rede'].dirty || formGroup.controls['rede'].touched)"
+            class="alert alert-danger">
+            Rede do colegio é obrigatório
+          </div>
+        </div>
+      </div>
+
+
+      <!-- FIM ROW 2 -->
+
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <label for="site" class="input-group-text">WebSite</label>
+        </div>
+        <input type="text" class="form-control" placeholder="Website" id="site" formControlName="website">
+      </div>
+
+      <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="modal_success = sucesso; modal_error = falha">
+        Atualizar</button>
+    </form>
+
+    <!--  -->
+    <ng-template #sucesso>
+      <div class="alert alert-success" role="alert" style="margin: 0px 0px;">
+        <strong>Colégio Atualizado ;)</strong>
+      </div>
+    </ng-template>
+
+    <!--  -->
+    <ng-template #falha>
+      <div class="alert alert-danger" role="alert" style="margin: 0px 0px;">
+        <strong>Falha ao atualizar colégio :(</strong>
+        <hr>
+        <p>
+          {{error_message}}
+        </p>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

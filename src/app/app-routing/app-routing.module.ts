@@ -7,10 +7,14 @@ import { HomeComponent } from '../components/home/home.component';
 // colegio
 import { ListColegiosComponent } from '../components/colegio/list-colegios/list-colegios.component';
 import { FormColegioComponent } from '../components/colegio/form-colegio/form-colegio.component';
+import { EditColegioComponent } from '../components/colegio/edit-colegio/edit-colegio.component';
+
 import { ListVeiculosComponent } from '../components/veiculo/list-veiculos/list-veiculos.component';
 import { FormVeiculosComponent } from '../components/veiculo/form-veiculos/form-veiculos.component';
+
 import { ListAlunosComponent } from '../components/aluno/list-alunos/list-alunos.component';
 import { FormAlunoComponent } from '../components/aluno/form-aluno/form-aluno.component';
+
 import { MensalidadeComponent } from '../components/mensalidade/mensalidade.component';
 import { RelatoriosComponent } from '../components/relatorios/relatorios.component';
 import { GeralComponent } from '../components/relatorios/geral/geral.component';
@@ -30,6 +34,7 @@ const routes: Routes = [
     // Colegio
     {path: 'listagem/colegios', component: ListColegiosComponent},
     {path: 'cadastrar/colegio', component: FormColegioComponent},
+    {path: 'editar/colegio/:id', component: EditColegioComponent},
  
     // Veiculo
     {path: 'listagem/veiculos', component: ListVeiculosComponent},

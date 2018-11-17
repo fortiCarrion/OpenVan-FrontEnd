@@ -38,6 +38,7 @@ import { PendenteComponent } from './components/relatorios/pendente/pendente.com
 import { AtrasadoComponent } from './components/relatorios/atrasado/atrasado.component';
 import { QuitadoComponent } from './components/relatorios/quitado/quitado.component';
 import { ManualMensalidadeComponent } from './components/relatorios/manual-mensalidade/manual-mensalidade.component';
+import { EditColegioComponent } from './components/colegio/edit-colegio/edit-colegio.component';
 
 
 
@@ -62,7 +63,8 @@ import { ManualMensalidadeComponent } from './components/relatorios/manual-mensa
     PendenteComponent,
     AtrasadoComponent,
     QuitadoComponent,
-    ManualMensalidadeComponent
+    ManualMensalidadeComponent,
+    EditColegioComponent
   ],
   imports: [
     BrowserModule,
