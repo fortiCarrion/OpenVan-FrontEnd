@@ -68,7 +68,7 @@ export class RelatorioVeiculosComponent implements OnInit {
       let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-      pdf.save('relatorioVeiculos.pdf'); // Generated PDF   
+      pdf.save('veiculos.pdf'); // Generated PDF   
     });
   }
 

@@ -30,4 +30,18 @@ export class VeiculoService {
     delete(id: any) {
         return this.http.delete(`${API_CONFIG.baseUrl}/veiculos/${id}`);
     }
+
+    findOne(id: any): Observable<VeiculoDTO> {
+        return this.http.get<VeiculoDTO>(`${API_CONFIG.baseUrl}/veiculos/${id}`);
+    }
+
+    update(obj: VeiculoDTO, id: any){
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/veiculos/${id}`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            });
+    }
 }
