@@ -20,6 +20,7 @@ export class EditAlunoComponent implements OnInit {
   data = {
     enderecos: [
       {
+        id: "",
         endereco: "",
         numero: "",
         bairro: "",
@@ -29,6 +30,7 @@ export class EditAlunoComponent implements OnInit {
 
     contatos: [
       {
+        id:"",
         referencia: "",
         celular: "",
         comercial: "",
@@ -129,7 +131,8 @@ export class EditAlunoComponent implements OnInit {
       .subscribe(response => {
         this.aluno = response;
         this.title = 'Atualizar Aluno: ' + this.aluno.nome;
-        //console.log(this.colegio)
+        console.log(response.vencimentoMensalidade);
+        console.log('test');
 
         this.formGroup.patchValue({ "nome": this.aluno.nome });
         this.formGroup.patchValue({ "pai": this.aluno.pai });
@@ -139,7 +142,44 @@ export class EditAlunoComponent implements OnInit {
         this.formGroup.patchValue({ "status": this.aluno.status });
         this.formGroup.patchValue({ "recado": this.aluno.recado });
         this.formGroup.patchValue({ "valor": this.aluno.valor });
-        this.formGroup.patchValue({ "vencimentoMensalidade": this.aluno.vencimento });
+        this.formGroup.patchValue({ "vencimentoMensalidade": this.aluno.vencimentoMensalidade });
+
+
+        let veiculo_id = this.formGroup.value.veiculo.id;
+        let controlVeiculo = <FormGroup>this.formGroup.controls.veiculo;
+        controlVeiculo.controls['id'].setValue(parseInt(veiculo_id));
+
+        let colegio_id = this.formGroup.value.colegio.id;
+        let controlColegio = <FormGroup>this.formGroup.controls.colegio;
+        controlColegio.controls['id'].setValue(parseInt(colegio_id));
+
+        let controlEnderecos = <FormArray>this.formGroup.controls.enderecos;
+        console.log(controlEnderecos);
+        console.log(response.enderecos);
+        response.enderecos.forEach(x => {
+          
+          controlEnderecos.push(this.formBuilder.group({
+            id: x.id,
+            endereco: x.endereco,
+            numero: x.numero,
+            bairro: x.bairro,
+            complemento: x.complemento
+          }))
+        });
+
+        let controlContatos = <FormArray>this.formGroup.controls.contatos;
+        console.log(controlContatos);
+        console.log(response.contatos);
+        response.contatos.forEach(x => {
+          
+          controlContatos.push(this.formBuilder.group({
+            id: x.id,
+            referencia: x.referencia,
+            residencial: x.residencial,
+            celular: x.celular,
+            comercial: x.comercial
+          }))
+        });
 
       },
         error => {
@@ -245,7 +285,7 @@ export class EditAlunoComponent implements OnInit {
 
 
   // -----------------------------------------------------
-  // ENDERECOS
+  // CONTATOS
   addNewContato() {
     let control = <FormArray>this.formGroup.controls.contatos;
     control.push(

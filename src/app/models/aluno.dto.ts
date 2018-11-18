@@ -26,7 +26,7 @@ export interface AlunoDTO {
     status: string;
     recado: string;
     valor: number;
-    vencimento: number;
+    vencimentoMensalidade: number;
     enderecos: Endereco[];
     contatos: Contato[];
     colegio: RefDTO;

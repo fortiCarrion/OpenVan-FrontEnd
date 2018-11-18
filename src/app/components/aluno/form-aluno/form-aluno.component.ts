@@ -249,7 +249,7 @@ export class FormAlunoComponent implements OnInit {
 
 
   // -----------------------------------------------------
-  // ENDERECOS
+  // CONTATOS
   addNewContato() {
     let control = <FormArray>this.formGroup.controls.contatos;
     control.push(
