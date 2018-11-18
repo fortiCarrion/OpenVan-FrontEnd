@@ -128,7 +128,7 @@ export class EditAlunoComponent implements OnInit {
     this.alunoService.findOne(id)
       .subscribe(response => {
         this.aluno = response;
-        this.title = 'Editar Aluno ' + this.aluno.nome;
+        this.title = 'Atualizar Aluno: ' + this.aluno.nome;
         //console.log(this.colegio)
 
         this.formGroup.patchValue({ "nome": this.aluno.nome });

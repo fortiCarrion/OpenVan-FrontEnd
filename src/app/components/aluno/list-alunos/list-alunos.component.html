@@ -79,19 +79,29 @@
                     <strong>Veículo: {{aluno.veiculo.numero}}</strong>
                     <br>
                     <hr>
-                    <strong>Celular Aluno: </strong> {{aluno.celular}}
+                    <strong>Celular aluno: </strong>
+                    <br>{{aluno.celular}}
                     <br>
-                    <strong>Nome pai: </strong> {{aluno.pai}}
+                    <strong>Nome pai: </strong>
+                    <br> {{aluno.pai}}
                     <br>
-                    <strong>Nome mae: </strong> {{aluno.mae}}
+                    <strong>Nome mãe: </strong>
+                    <br> {{aluno.mae}}
                     <br>
-                    <strong>Valor mesalidade: R$: </strong> {{aluno.valor}}
+                    <strong>Valor mesalidade: </strong>
+                    <br> {{aluno.valor | currency:'R$: '}}
                     <br>
-                    <strong>Data vencimento: </strong> {{aluno.vencimentoMensalidade}}
-                    <br>
-                    <strong>Recado: </strong> {{aluno.recado}}
+                    <strong>Data vencimento: </strong>
+                    <br> {{aluno.vencimentoMensalidade}}
+
                   </div>
                   <div class="col-md-6">
+                    <strong>
+                      <font size="4">Contatos</font>
+                    </strong>
+                    <br>
+                    <div *ngIf='!selectedAluno.contatos.length; then showContatosDefault'></div>
+                    <ng-template #showContatosDefault> Não possui contatos</ng-template>
                     <br>
                     <div *ngFor="let c of selectedAluno.contatos">
 
@@ -105,8 +115,34 @@
                       <br>
                       <hr>
                     </div>
+
+                    <strong>
+                      <font size="4">Endereços</font>
+                    </strong>
+                    <br>
+                    <div *ngIf='!selectedAluno.enderecos.length; then showEnderecosDefault'></div>
+                    <ng-template #showEnderecosDefault> Não possui endereços</ng-template>
+                    <br>
+                    <div *ngFor="let e of selectedAluno.enderecos">
+
+                      <strong>Endereço: </strong>
+                      <br> {{e.endereco}}
+                      <br>
+                      <strong>Número: </strong> {{e.numero}}
+                      <br>
+                      <strong>Bairro: </strong>
+                      {{e.bairro}}
+                      <br>
+                      <strong>Complemento: </strong>
+                      {{e.complemento}}
+                      <br>
+                      <hr>
+                    </div>
+
                   </div>
                 </div>
+                <hr>
+                <strong>Recado: </strong> {{aluno.recado}}
               </div>
 
             </ng-template>
