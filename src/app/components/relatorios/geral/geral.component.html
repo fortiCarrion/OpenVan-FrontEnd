@@ -48,7 +48,7 @@
             <td align="center">{{men.emissao}}</td>
             <td align="center">{{men.vencimento}}</td>
             <td align="center">{{men.pagamento}}</td>
-            <td align="center">R$: {{men.valor}}</td>
+            <td align="center">{{men.valor | currency:'R$: '}}</td>
 
           </tr>
         </tbody>

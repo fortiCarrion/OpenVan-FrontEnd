@@ -49,7 +49,7 @@
               <td align="center">{{men.status}}</td>
               <td align="center">{{men.aluno.colegio.nome}}</td>
               <td align="center">{{men.vencimento}}</td>
-              <td align="center">R$: {{men.valor}}</td>
+              <td align="center">{{men.valor | currency:'R$: '}}</td>
               <td align="center">[   ]</td>
   
             </tr>

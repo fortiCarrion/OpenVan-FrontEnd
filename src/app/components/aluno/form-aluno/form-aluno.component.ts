@@ -79,7 +79,7 @@ export class FormAlunoComponent implements OnInit {
       celular: ['', [Validators.minLength(8), Validators.maxLength(14)]],
       status: [0, [Validators.required]],
       recado: ['', [Validators.maxLength(150)]],
-      valor: ['', [Validators.minLength(5)]],
+      valor: ['', [Validators.min(0), Validators.max(999)]],
       vencimentoMensalidade: ['', [Validators.required]],
       colegio: this.formBuilder.group({
         id: [null, [Validators.required]],
