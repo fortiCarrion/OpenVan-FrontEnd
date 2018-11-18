@@ -27,6 +27,7 @@ import { PendenteComponent } from '../components/relatorios/pendente/pendente.co
 import { AtrasadoComponent } from '../components/relatorios/atrasado/atrasado.component';
 import { QuitadoComponent } from '../components/relatorios/quitado/quitado.component';
 import { ManualMensalidadeComponent } from '../components/relatorios/manual-mensalidade/manual-mensalidade.component';
+import { EditAlunoComponent } from '../components/aluno/edit-aluno/edit-aluno.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
     // Aluno
     {path: 'listagem/alunos', component: ListAlunosComponent},
     {path: 'cadastrar/aluno', component: FormAlunoComponent},
+    {path: 'editar/aluno/:id', component: EditAlunoComponent},
 
     // Mensalidade
     {path: 'listagem/mensalidades', component: MensalidadeComponent},

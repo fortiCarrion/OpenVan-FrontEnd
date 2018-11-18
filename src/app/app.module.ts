@@ -40,6 +40,7 @@ import { QuitadoComponent } from './components/relatorios/quitado/quitado.compon
 import { ManualMensalidadeComponent } from './components/relatorios/manual-mensalidade/manual-mensalidade.component';
 import { EditColegioComponent } from './components/colegio/edit-colegio/edit-colegio.component';
 import { EditVeiculoComponent } from './components/veiculo/edit-veiculo/edit-veiculo.component';
+import { EditAlunoComponent } from './components/aluno/edit-aluno/edit-aluno.component';
 
 
 
@@ -66,7 +67,8 @@ import { EditVeiculoComponent } from './components/veiculo/edit-veiculo/edit-vei
     QuitadoComponent,
     ManualMensalidadeComponent,
     EditColegioComponent,
-    EditVeiculoComponent
+    EditVeiculoComponent,
+    EditAlunoComponent
   ],
   imports: [
     BrowserModule,

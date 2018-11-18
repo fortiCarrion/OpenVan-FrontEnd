@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { AlunoDTO } from '../../../models/aluno.dto';
+import { AlunoDTO, Endereco, Contato } from '../../../models/aluno.dto';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AlunoService } from '../../../services/domain/aluno.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { error } from 'util';
 
 @Component({
   selector: 'app-list-alunos',
@@ -29,10 +30,33 @@ export class ListAlunosComponent implements OnInit {
   alunoRematricula: FormGroup;
 
   alunos: AlunoDTO[];
-  selectedAluno: AlunoDTO;
+  endereco: Endereco[];
+  contato: Contato[];
   modalRef: BsModalRef;
 
   displayedColumns: string[] = ['nome', 'veiculo', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
+
+  // Objetivo de instanciar o objeto para não dar erro a primeira vez que selecionar um aluno
+  selectedAluno: AlunoDTO = {
+    id: "",
+    nome: "",
+    pai: "",
+    mae: "",
+    periodo: "",
+    celular: "",
+    status: "",
+    recado: "",
+    valor: null,
+    vencimento: null,
+    enderecos: [],
+    contatos: [],
+    colegio: {
+      id: ""
+    },
+    veiculo: {
+      id: ""
+    }
+  };
 
   constructor(
     public alunoService: AlunoService,
@@ -46,7 +70,7 @@ export class ListAlunosComponent implements OnInit {
 
   ngOnInit() {
     this.getArray();
-    this.getalunos();
+    //this.getalunos();
 
   }
 
@@ -78,7 +102,9 @@ export class ListAlunosComponent implements OnInit {
   getalunos(): void {
     this.alunoService.findAll()
       .subscribe(response => {
+        console.log(response);
         this.alunos = response;
+        console.log(this.alunos[0]);
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -120,7 +146,15 @@ export class ListAlunosComponent implements OnInit {
   }
 
   onSelect(aluno: AlunoDTO): void {
-    this.selectedAluno = aluno;
+    console.log(aluno.id);
+    this.alunoService.findOne(aluno.id)
+      .subscribe(response => {
+        this.selectedAluno = response;
+        // console.log(this.selectedAluno);
+        // console.log(this.selectedAluno.contatos)
+      }, error => {
+        console.log(error);
+      });
   }
 
   openModal(template: TemplateRef<any>) {

@@ -32,16 +32,18 @@ export class AlunoService {
         return this.http.delete(`${API_CONFIG.baseUrl}/alunos/${id}`);
     }
 
-    
-    update(obj: any ,id: any){
+    findOne(id: any): Observable<AlunoDTO> {
+        return this.http.get<AlunoDTO>(`${API_CONFIG.baseUrl}/alunos/${id}`);
+    }
 
+    update(obj: AlunoDTO, id: any){
         return this.http.put(
             `${API_CONFIG.baseUrl}/alunos/${id}`,
             obj,
             {
                 observe: 'response',
                 responseType: 'text'
-            }
-        );
+            });
     }
+
 }

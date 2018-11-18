@@ -1,0 +1,216 @@
+<div class="container background">
+  <h2 class="text-center" style="margin-top: 10px;">{{title}}</h2>
+  <hr>
+
+  <div [hidden]="submitted" class="col-md-12" style="margin-bottom: 20px;">
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <div class="form-group input-group">
+        <div class="input-group-prepend">
+          <label for="nome" class="input-group-text" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Nome</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome do aluno" id="nome" formControlName="nome" name="nome">
+      </div>
+      <div *ngIf="formGroup.controls['nome'].errors && (formGroup.controls['nome'].dirty || formGroup.controls['nome'].touched)"
+        class="alert alert-danger">
+        Nome do aluno é obrigatório
+      </div>
+
+      <div class="form-group input-group mb-3">
+        <div class="input-group-prepend">
+          <label for="pai" class="input-group-text">Nome Pai</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome do Pai" id="pai" formControlName="pai" name="pai">
+      </div>
+
+      <div class="form-group input-group mb-3">
+        <div class="input-group-prepend">
+          <label for="mae" class="input-group-text">Nome Mãe</label>
+        </div>
+        <input required type="text" class="form-control" placeholder="Nome da Mãe" id="mae" formControlName="mae" name="mae">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-lg-4" formGroupName="colegio">
+          <div class="input-group-prepend">
+            <label for="colegio" class="input-group-text">Colegio</label>
+          </div>
+          <select required class="form-control" id="colegio" formControlName="id" name="colegio">
+            <option *ngFor="let c of colegios" [value]="c.id" type="number">{{c.nome}}</option>
+          </select>
+        </div>
+
+        <div class="form-group input-group mb-3 col-lg-8">
+          <div class="input-group-prepend">
+            <label for="periodo" class="input-group-text">Periodo</label>
+          </div>
+          <select required class="form-control" id="periodo" formControlName="periodo">
+            <option *ngFor="let p of periodos; first as f" [value]="p" [selected]="f">{{p}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-lg-6" formGroupName="veiculo">
+          <div class="input-group-prepend">
+            <label required for="veiculo" class="input-group-text">Numero do veiculo</label>
+          </div>
+          <select required class="form-control" id="veiculo" formControlName="id" name="veiculo">
+            <option *ngFor="let v of veiculos" [value]="v.id">{{v.numero}}</option>
+          </select>
+        </div>
+        <div class="form-group input-group mb-3 col-lg-6">
+          <div class="input-group-prepend">
+            <label for="celular_aluno" class="input-group-text">Celular</label>
+          </div>
+          <input type="text" class="form-control" placeholder="(00) 0000-0000" id="celular_aluno" formControlName="celular" name="celular_aluno">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group input-group mb-3 col-lg-6">
+          <div class="input-group-prepend">
+            <label for="valor" class="input-group-text">Valor Mensalidade R$:</label>
+          </div>
+          <input required type="number" min="00.00" max="999.99" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" placeholder="00.00" id="valor" formControlName="valor"
+          name="valor">
+            </div>
+        <div class="form-group input-group mb-3 col-lg-6">
+          <div class="input-group-prepend">
+            <label for="vencimento" class="input-group-text">Dia Vencimento</label>
+          </div>
+          <select required class="form-control" id="vencimento" formControlName="vencimentoMensalidade" name="vencimento">
+            <option *ngFor="let ven of vencimento_pagamentos" [value]="ven">{{ven}}</option>
+          </select>
+        </div>
+      </div>
+
+      <legend>
+        <h5>Endereços</h5>
+      </legend>
+      <!-- ENDEREÇO -->
+      <div formArrayName="enderecos">
+        <div class="form-row mb-1" *ngFor="let end of formGroup.get('enderecos').controls; let i = index">
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="endereco" class="input-group-text">Endereço</label>
+              <input type="text" class="form-control" id="endereco" formControlName="endereco" placeholder="Endereço">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="numero" class="input-group-text">Número</label>
+              <input type="number" class="form-control" id="numero" formControlName="numero" placeholder="Número">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="bairro" class="input-group-text">Bairro</label>
+              <input type="text" class="form-control" id="bairro" formControlName="bairro" placeholder="Bairro">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-10">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label class="input-group-text" for="complemento">Complemento</label>
+              <input type="text" class="form-control" id="complemento" formControlName="complemento" placeholder="Complemento">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteEndereco(i)">
+              <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
+              Remover Endereço
+            </button>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-info btn-block" (click)="addNewEndereco()">Novo Endereço</button>
+        </div>
+      </div>
+
+      <br>
+      <legend>
+        <h5>Contatos</h5>
+      </legend>
+      <!-- CONTATOS -->
+      <div formArrayName="contatos">
+        <div class="form-row mb-1" *ngFor="let end of formGroup.get('contatos').controls; let i = index">
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="referencia" class="input-group-text">Referência</label>
+              <input type="text" class="form-control" id="referencia" formControlName="referencia" placeholder="Nome do contato">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="comercial" class="input-group-text">Comercial</label>
+              <input type="text" class="form-control" id="comercial" formControlName="comercial" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-4">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label for="residencial" class="input-group-text">Residencial</label>
+              <input type="text" class="form-control" id="residencial" formControlName="residencial" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="form-group col-lg-10">
+            <div [formGroupName]="i" class="input-group-prepend">
+              <label class="input-group-text" for="celular">Celular</label>
+              <input type="text" class="form-control" id="celular" formControlName="celular" placeholder="(00) 0000-0000">
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <button type="button" class="btn btn-danger btn-block" (click)="deleteContato(i)">
+              <!-- <img src="svg/trash.svg" width="25" height="25" alt=""> -->
+              Remover Contato
+            </button>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-info btn-block" (click)="addNewContato()">Novo Contato</button>
+        </div>
+      </div>
+
+
+      <br>
+      <div class="form-group">
+        <label for="recado">
+          <strong>Recado</strong>
+        </label>
+        <textarea class="form-control" id="recado" cols="30" rows="4" placeholder="Adicionar algum recado ..." formControlName="recado"
+          name="recado"></textarea>
+      </div>
+
+      <a class="btn btn-secondary" (click)="goBack()">Voltar</a>
+      <button type="submit" class="btn btn-success float-right" [disabled]="formGroup.invalid" (click)="openModal(inserido)">
+        Cadastrar</button>
+    </form>
+
+    <ng-template #inserido>
+      <div class="alert alert-success" role="alert" style="margin: 0px 0px;">
+        <strong>Aluno Cadastrado</strong>
+      </div>
+    
+    </ng-template>
+    <ng-template #erro>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 0px 0px;">
+            <strong>Erro ao cadastrar Aluno</strong> 
+            <hr>
+            {{error}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+    </ng-template>
+
+  </div>
+</div>
