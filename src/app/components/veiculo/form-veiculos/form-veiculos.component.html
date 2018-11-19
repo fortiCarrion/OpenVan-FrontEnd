@@ -8,7 +8,7 @@
         <div class="input-group-prepend">
           <label for="condutor" class="input-group-text">Condutor</label>
         </div>
-        <input type="text" class="form-control" placeholder="Nome do condutor" id="condutor" required name="condutor" formControlName="condutor">
+        <input type="text" pattern="[A-Za-z ]+" class="form-control" placeholder="Nome do condutor" id="condutor" required name="condutor" formControlName="condutor">
       </div>
       <div *ngIf="formGroup.controls['condutor'].errors && (formGroup.controls['condutor'].dirty || formGroup.controls['condutor'].touched)"
         class="alert alert-danger">
@@ -28,7 +28,7 @@
             <label for="ano" class="input-group-text">Ano</label>
           </div>
           <input type="number" class="form-control" placeholder="Ano" id="ano" pattern="[0-9]+" name="ano" formControlName="ano" min="1999"
-            max="2022">
+            max="{{year}}">
         </div>
 
         <div class="form-group col-lg-5 input-group">

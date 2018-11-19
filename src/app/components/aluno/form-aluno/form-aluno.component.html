@@ -9,7 +9,7 @@
         <div class="input-group-prepend">
           <label for="nome" class="input-group-text" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Nome</label>
         </div>
-        <input required type="text" class="form-control" placeholder="Nome do aluno" id="nome" formControlName="nome" name="nome">
+        <input required type="text" pattern="[a-zA-Z ]+" class="form-control" placeholder="Nome do aluno" id="nome" formControlName="nome" name="nome">
       </div>
       <div *ngIf="formGroup.controls['nome'].errors && (formGroup.controls['nome'].dirty || formGroup.controls['nome'].touched)"
         class="alert alert-danger">
@@ -20,14 +20,14 @@
         <div class="input-group-prepend">
           <label for="pai" class="input-group-text">Nome Pai</label>
         </div>
-        <input required type="text" class="form-control" placeholder="Nome do Pai" id="pai" formControlName="pai" name="pai">
+        <input required type="text" pattern="[a-zA-Z ]+" class="form-control" placeholder="Nome do Pai" id="pai" formControlName="pai" name="pai">
       </div>
 
       <div class="form-group input-group mb-3">
         <div class="input-group-prepend">
           <label for="mae" class="input-group-text">Nome Mãe</label>
         </div>
-        <input required type="text" class="form-control" placeholder="Nome da Mãe" id="mae" formControlName="mae" name="mae">
+        <input required type="text" pattern="[a-zA-Z ]+" class="form-control" placeholder="Nome da Mãe" id="mae" formControlName="mae" name="mae">
       </div>
 
       <div class="form-row">

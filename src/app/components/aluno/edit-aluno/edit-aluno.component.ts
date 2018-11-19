@@ -30,7 +30,7 @@ export class EditAlunoComponent implements OnInit {
 
     contatos: [
       {
-        id:"",
+        id: "",
         referencia: "",
         celular: "",
         comercial: "",
@@ -51,7 +51,8 @@ export class EditAlunoComponent implements OnInit {
   title = '';
   error = 'Não padronizado';
 
-  periodos: string[] = ['Matutino', 'Vespertino', 'Noturno'];
+  // periodos: string[] = ['Matutino', 'Vespertino', 'Noturno'];
+  periodos: string[] = ['MATUTINO', 'VERSPERTINO', 'NOTURNO'];
   vencimento_pagamentos: number[] = [5, 10, 15, 20, 25];
   numero_veiculo: number[];
   http: any;
@@ -103,6 +104,37 @@ export class EditAlunoComponent implements OnInit {
     this.getAluno();
   }
 
+  onSubmit(): void {
+    //this.toNumRede(this.formGroup.controls['rede'].value);
+    this.update();
+    console.log(this.formGroup.value);
+  }
+
+  update() {
+    //console.log(this.formGroup.value);
+    this.alunoService.update(this.formGroup.value, this.aluno.id)
+      .subscribe(response => {
+        this.goBack();
+        this.openModal(this.modal_success);
+      },
+
+        error => {
+          console.log(error);
+          this.openModal(this.modal_error);
+          switch (error.status) {
+
+            case 400:
+
+              this.error_message = error;
+              break;
+
+            default:
+
+              this.error_message = error.message;
+          }
+
+        });
+  }
 
   getVeiculos(): void {
     this.veiculoService.findAll()
@@ -126,13 +158,12 @@ export class EditAlunoComponent implements OnInit {
 
   getAluno(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
     this.alunoService.findOne(id)
       .subscribe(response => {
         this.aluno = response;
         this.title = 'Atualizar Aluno: ' + this.aluno.nome;
-        console.log(response.vencimentoMensalidade);
-        console.log('test');
+        // console.log(response.vencimentoMensalidade);
+        // console.log('test');
 
         this.formGroup.patchValue({ "nome": this.aluno.nome });
         this.formGroup.patchValue({ "pai": this.aluno.pai });
@@ -144,20 +175,21 @@ export class EditAlunoComponent implements OnInit {
         this.formGroup.patchValue({ "valor": this.aluno.valor });
         this.formGroup.patchValue({ "vencimentoMensalidade": this.aluno.vencimentoMensalidade });
 
-
-        let veiculo_id = this.formGroup.value.veiculo.id;
+        let veiculoId = response.veiculo.id;
         let controlVeiculo = <FormGroup>this.formGroup.controls.veiculo;
-        controlVeiculo.controls['id'].setValue(parseInt(veiculo_id));
+        controlVeiculo.controls['id'].patchValue(parseInt(veiculoId));
 
-        let colegio_id = this.formGroup.value.colegio.id;
+        // this.formGroup.controls['id'].patchValue(veiculo_id);
+
+        let colegioId = response.colegio.id;
         let controlColegio = <FormGroup>this.formGroup.controls.colegio;
-        controlColegio.controls['id'].setValue(parseInt(colegio_id));
+        controlColegio.controls['id'].setValue(parseInt(colegioId));
 
         let controlEnderecos = <FormArray>this.formGroup.controls.enderecos;
-        console.log(controlEnderecos);
-        console.log(response.enderecos);
+        // console.log(controlEnderecos);
+        // console.log(response.enderecos);
         response.enderecos.forEach(x => {
-          
+
           controlEnderecos.push(this.formBuilder.group({
             id: x.id,
             endereco: x.endereco,
@@ -168,10 +200,10 @@ export class EditAlunoComponent implements OnInit {
         });
 
         let controlContatos = <FormArray>this.formGroup.controls.contatos;
-        console.log(controlContatos);
-        console.log(response.contatos);
+        // console.log(controlContatos);
+        // console.log(response.contatos);
         response.contatos.forEach(x => {
-          
+
           controlContatos.push(this.formBuilder.group({
             id: x.id,
             referencia: x.referencia,
@@ -181,6 +213,7 @@ export class EditAlunoComponent implements OnInit {
           }))
         });
 
+        //console.log(this.formGroup.value);
       },
         error => {
           console.log(error);
@@ -211,9 +244,9 @@ export class EditAlunoComponent implements OnInit {
 
   toNumPeriodo(periodo: string) {
 
-    if (periodo == "Matutino") {
+    if (periodo == "MATUTINO") {
       this.formGroup.patchValue({ "periodo": 0 });
-    } else if (periodo == "Vespertino") {
+    } else if (periodo == "VESPERTINO") {
       this.formGroup.patchValue({ "periodo": 1 });
     } else {
       this.formGroup.patchValue({ "periodo": 2 });

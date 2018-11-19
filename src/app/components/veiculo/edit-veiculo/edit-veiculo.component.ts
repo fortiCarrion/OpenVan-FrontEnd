@@ -27,7 +27,8 @@ export class EditVeiculoComponent implements OnInit {
 
   veiculo: VeiculoDTO;
 
-  status = ['Ativo', 'Inativo', 'Manutenção'];
+  // status = ['Ativo', 'Inativo', 'Manutenção'];
+  status = ['ATIVO', 'INATIVO', 'MANUTENÇÃO'];
   http: any;
 
   constructor(
@@ -52,7 +53,7 @@ export class EditVeiculoComponent implements OnInit {
 
 
   onSubmit() {
-    this.toEnumStatus(this.formGroup.controls['status'].value);
+    //this.toEnumStatus(this.formGroup.controls['status'].value);
     //console.log(this.formGroup.value);
     this.update();
     console.log(this.formGroup.value);

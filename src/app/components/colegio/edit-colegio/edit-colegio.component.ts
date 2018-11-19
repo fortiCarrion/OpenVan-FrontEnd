@@ -24,7 +24,8 @@ export class EditColegioComponent implements OnInit {
 
   error_message: string;
 
-  redes = ['Estadual', 'Municipal', 'Particular'];
+  //redes = ['Estadual', 'Municipal', 'Particular'];
+  redes = ['ESTADUAL', 'MUNICIPAL', 'PARTICULAR'];
   http: any;
   colegio: ColegioDTO;
 
@@ -80,7 +81,7 @@ export class EditColegioComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.toNumRede(this.formGroup.controls['rede'].value);
+    //this.toNumRede(this.formGroup.controls['rede'].value);
     this.update();
     console.log(this.formGroup.value);
   }

@@ -47,7 +47,7 @@ export class ListAlunosComponent implements OnInit {
     status: "",
     recado: "",
     valor: null,
-    vencimento: null,
+    vencimentoMensalidade: null,
     enderecos: [],
     contatos: [],
     colegio: {
