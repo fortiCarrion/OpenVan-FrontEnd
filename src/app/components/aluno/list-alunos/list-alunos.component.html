@@ -22,9 +22,14 @@
         <mat-cell class="mat-cell-aluno" *matCellDef="let aluno">{{aluno.nome}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="veiculo" class="md-2">
+      <ng-container matColumnDef="veiculo">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Veículo</mat-header-cell>
         <mat-cell *matCellDef="let aluno">{{aluno.veiculo.numero}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="colegio">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Colégio</mat-header-cell>
+        <mat-cell *matCellDef="let aluno">{{aluno.colegio.nome}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="valor">
@@ -154,10 +159,17 @@
             </li>
 
             <li class="list-inline-item">
-              <button type="button" class="btn btn-link" (click)="openModal(deletaraluno)">
-                <img src="svg/trash.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Remover aluno {{aluno.nome}}">
-              </button>
-
+              <div *ngIf="aluno.status == 'INATIVO'; then desmatricularDesabilitado; else desmatricularAbilitado"></div>
+              <ng-template #desmatricularDesabilitado>
+                <button disabled type="button" class="btn btn-link" (click)="openModal(desmatricularAluno)">
+                  <img src="svg/remove-button.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Desmatricular aluno {{aluno.nome}}">
+                </button>
+              </ng-template>
+              <ng-template #desmatricularAbilitado>
+                  <button type="button" class="btn btn-link" (click)="openModal(desmatricularAluno)">
+                    <img src="svg/remove-button.svg" width="20" height="20" alt="" data-toggle="tooltip" data-placement="top" title="Desmatricular aluno {{aluno.nome}}">
+                  </button>
+                </ng-template>
             </li>
             <!-- MODAL -->
             <ng-template #deletaraluno>
@@ -186,6 +198,32 @@
 
             </ng-template>
             <!-- FIM MODAL -->
+            <!-- MODAL -->
+            <ng-template #desmatricularAluno>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Deseja desmatricular o Aluno:
+                  <br> {{aluno.nome}}</h4>
+
+                <button type="button" class="close" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <span style="margin-top: 5px; margin-bottom: 5px; font-size: 0.852em; background-color: whitesmoke; border-radius: 8px">
+                  <strong>Data registro: {{aluno.registro}}</strong>
+                </span>
+                <br> O aluno ficara com o status inativo, parando de gerar mensalidades automaticas no sistema.
+                <br> Para gerar novamente as mensalidades é necessario fazer a rematrícula.
+                <br>
+                <br>
+                <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
+
+                <button type="button" class="btn btn-danger float-right" (click)="getAlunoRematricula(aluno, aluno.vencimentoMensalidade, 'INATIVO'); modalRef.hide()">Confirmar</button>
+
+              </div>
+
+            </ng-template>
+            <!-- FIM MODAL -->
           </ul>
         </mat-cell>
       </ng-container>
@@ -196,7 +234,7 @@
 
           <button type="button" *ngIf="aluno.status == 'INATIVO'" class="btn" data-toggle="modal" data-target="#rematricularAluno"
             (click)="openModal(rematricularAluno)">
-            <img src="svg/ticket.svg" width="20" height="20" alt="">
+            <img src="svg/plus-sign-in-a-black-circle.svg" width="20" height="20" alt="">
           </button>
 
           <!-- MODAL -->
@@ -219,7 +257,7 @@
               <br>
               <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Voltar</button>
 
-              <button type="button" class="btn btn-success float-right" (click)="getAlunoRematricula(aluno, aluno.vencimentoMensalidade); modalRef.hide()">Confirmar</button>
+              <button type="button" class="btn btn-success float-right" (click)="getAlunoRematricula(aluno, aluno.vencimentoMensalidade, 'ATIVO'); modalRef.hide()">Confirmar</button>
             </div>
 
           </ng-template>

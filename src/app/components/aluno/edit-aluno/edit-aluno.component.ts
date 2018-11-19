@@ -183,13 +183,13 @@ export class EditAlunoComponent implements OnInit {
 
         let colegioId = response.colegio.id;
         let controlColegio = <FormGroup>this.formGroup.controls.colegio;
-        controlColegio.controls['id'].setValue(parseInt(colegioId));
+        controlColegio.controls['id'].patchValue(parseInt(colegioId));
 
         let controlEnderecos = <FormArray>this.formGroup.controls.enderecos;
         // console.log(controlEnderecos);
         // console.log(response.enderecos);
         response.enderecos.forEach(x => {
-
+        console.log(x);
           controlEnderecos.push(this.formBuilder.group({
             id: x.id,
             endereco: x.endereco,

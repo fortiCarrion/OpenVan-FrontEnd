@@ -34,7 +34,7 @@ export class ListAlunosComponent implements OnInit {
   contato: Contato[];
   modalRef: BsModalRef;
 
-  displayedColumns: string[] = ['nome', 'veiculo', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
+  displayedColumns: string[] = ['nome', 'veiculo', 'colegio', 'valor', 'vencimento', 'status', 'outros', 'rematricula'];
 
   // Objetivo de instanciar o objeto para não dar erro a primeira vez que selecionar um aluno
   selectedAluno: AlunoDTO = {
@@ -102,9 +102,9 @@ export class ListAlunosComponent implements OnInit {
   getalunos(): void {
     this.alunoService.findAll()
       .subscribe(response => {
-        console.log(response);
+        
         this.alunos = response;
-        console.log(this.alunos[0]);
+        
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -117,13 +117,13 @@ export class ListAlunosComponent implements OnInit {
   test(a: AlunoDTO) {
     console.log(a.colegio.id);
   }
-  getAlunoRematricula(aluno: AlunoDTO, dia_vencimetno: number) {
+  getAlunoRematricula(aluno: AlunoDTO, dia_vencimetno: number, tipo: String) {
     this.alunoRematricula = this.formBuilder.group({
       nome: [aluno.nome],
       pai: [aluno.pai],
       mae: [aluno.mae],
       periodo: [aluno.periodo],
-      status: ['ATIVO'],
+      status: [tipo],
       valor: [aluno.valor],
       vencimentoMensalidade: [dia_vencimetno],
       colegio: this.formBuilder.group({
@@ -146,7 +146,7 @@ export class ListAlunosComponent implements OnInit {
   }
 
   onSelect(aluno: AlunoDTO): void {
-    console.log(aluno.id);
+    //console.log(aluno.id);
     this.alunoService.findOne(aluno.id)
       .subscribe(response => {
         this.selectedAluno = response;

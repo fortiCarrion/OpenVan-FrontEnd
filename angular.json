@@ -27,7 +27,10 @@
               "src/svg/trash.svg",
               "src/svg/magnifying-glass.svg",
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/svg/plus-sign-in-a-black-circle.svg",
+              "src/svg/remove-button.svg"
+
             ],
             "styles": [
               {
