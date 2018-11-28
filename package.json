@@ -1,9 +1,13 @@
 {
   "name": "openvan-app",
   "version": "0.0.0",
+  "main": "main.js",
   "scripts": {
+    "electron-tsc": "tsc main.ts && ng build --base-href ./ && electron .",
+    "electron": "ng build --base-href ./ && electron .",
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.js",
+    "start": "electron .",
+    "start2": "ng serve --proxy-config proxy.config.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -42,6 +46,7 @@
     "@types/jspdf": "^1.1.31",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.3.0",
+    "electron": "^3.0.9",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
